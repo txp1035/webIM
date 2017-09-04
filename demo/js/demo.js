@@ -6,6 +6,7 @@ window.onload = function() {
             sendClick();
         }
     }); 
+    setMainMargin();//动态设置聊天窗口的margin
 	$("#login").click(loginClick);
 	$("#register").click(registerClick);
 	$("#logout").click(logoutClick);
@@ -739,7 +740,20 @@ var buildCreateGroupsDiv = function(){
    
 } 
 
-
+var setMainMargin = function(){
+    if ($(window).height() <= 750) {
+        $(".main").attr("style","margin-top:0px;");
+    }else if ($(window).height() > 750) {
+        $(".main").attr("style","margin-top:100px;");
+    }    
+    $(window).resize(function(){
+        if ($(window).height() <= 750) {
+            $(".main").attr("style","margin-top:0px;");
+        }else if ($(window).height() > 750) {
+            $(".main").attr("style","margin-top:100px;");
+        }
+    });
+};//动态设置聊天窗口的margin
 
 
 
