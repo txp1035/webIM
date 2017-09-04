@@ -285,12 +285,12 @@ body{
 	margin: 0 19px;
 	overflow-x: hidden;
 	overflow-y: auto;
+	text-align: left;
 }
 
 .myMsg {
 	margin-bottom: 16px;
-	height: 40px;
-	text-align: right;
+	overflow: hidden;
 }
 
 .myMsg img {
@@ -298,21 +298,21 @@ body{
 }
 
 .myMsg span {
-	text-align: right;
+	display: block;
+	float: right;
 	padding: 9px 13px;
+	margin: 0 10px;
 	box-sizing: content-box;
-	display: inline-block;
 	background: #b2e281;
 	font-size: 14px;
-	margin: 0 10px;
-	height: 22px;
 	line-height: 22px;
+	max-width: 396px;
+	word-break:break-all;
 }
 
 .otherMsg {
 	margin-bottom: 16px;
-	height: 60px;
-	text-align: left;
+	overflow: hidden;
 }
 
 .otherMsg img {
@@ -320,15 +320,16 @@ body{
 }
 
 .otherMsg span {
-	text-align: left;
+	display: block;
+	float: left;
 	padding: 9px 13px;
+	margin: 0 10px;
 	box-sizing: content-box;
-	display: inline-block;
 	background: #FFF;
 	font-size: 14px;
-	margin: 0 10px;
-	height: 22px;
 	line-height: 22px;
+	max-width: 396px;
+	word-break:break-all;
 }
 
 .otherMsg h4 {
