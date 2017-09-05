@@ -18,8 +18,8 @@ window.onload = function() {
 	$("#register").click(registerClick);
 	$("#logout").click(logoutClick);
 	$("#getRoasters").click(getRoasters);
-	$("#loginPage-registerPage").click(divHide);
-	$("#registerPage-loginPage").click(divHide);
+	$("#loginPage-registerPage").click(function(){divHide(this);});
+	$("#registerPage-loginPage").click(function(){divHide(this);});
 	$("#group_msg-friend").click(function(){
         $("#friend_msg-group").css("background-position","-376px -322px")
         $("#friend_group-msg").css("background-position","-150px -96px")
@@ -52,6 +52,7 @@ window.onload = function() {
 var mainPage = ".main";//主界面
 var nikeName = ".nikename";//用户昵称
 var loginPage = "#loginPage";//登录界面
+var registerPage = "#registerPage";
 var friendList = "#friend";//好友列表
 var groupList = "#group";//群组列表
 var chatBoxContent = "#chat-box-content";//聊天盒子内容容器
@@ -238,9 +239,13 @@ var handleOpen = function(conn) {
     getGroups();
 };// 处理连接时
 var handlePresence = function(message){
+    console.log(message.type);
     switch(message.type) {
-        case 'joinGroupNotifications':
+        case 'joinPublicGroupSuccess':
             console.log(message);
+            break;
+        case 'joinGroupNotifications':
+            
             var a = confirm("入群申请 : "+message.from+"想加入你的群");
             var options = {
                 applicant: message.from,
@@ -481,10 +486,18 @@ var register = function(username,password,nickname) {
 		nickname: nickname, //填入昵称
 		appKey: WebIM.config.appkey,
 		success: function() {
-			console.log('注册成功!');
+			$("#remindMsg").text("注册成功");
+            $("#remindModal").modal();
+            $("#registerPage input").val("");
+            $(registerPage).addClass("hide");
+            $(loginPage).removeClass("hide");
 		},
-		error: function() {
-			console.log('注册失败!');
+		error: function(data) {
+            if (data.type == "17") {
+                $("#remindMsg").text("用户名重复请重新注册");
+                $("#remindModal").modal();
+            }
+            $("#registerPage input").val("");
 		},
 		apiUrl: WebIM.config.apiURL
 	};
@@ -560,8 +573,6 @@ var sendPrivatePicture = function(obj){
                     console.log('onFileUploadError');
                 },
                 onFileUploadComplete: function (data) {
-                    console.log('onFileUploadComplete');
-                    console.log(data);
                     var chatdiv = $('<div>').attr({
                         'class': 'myMsg'
                     });
@@ -618,8 +629,6 @@ var sendGroupPicture = function(obj){
                     console.log('onFileUploadError');
                 },
                 onFileUploadComplete: function (data) {
-                    console.log('onFileUploadComplete');
-                    console.log(data);
                     var chatdiv = $('<div>').attr({
                         'class': 'myMsg'
                     });
@@ -695,10 +704,21 @@ var joinGroups = function(groupId){
         groupId: groupId,
         success: function(resp) {
             console.log("成功加入群的resp: ", resp);
+            // $("#remindMsg").text("成功加入群");
+            // $("#remindModal").modal();
+            // var id = 'ListGroups-'+message.from;
+            // var hidename = message.from;
+            // var displayname = hidename;
+            // var type = 'chat';
+            // var src = "./demo/img/group_normal.png"
+            // var chatId = 'ChatGroups-'+message.from;
+            // appendListDiv(id,hidename,displayname,type,friendList,src);
+            // appendChatDiv(chatId,chatBoxContent);
         },
         error: function(e) {
             if(e.type == 17){
-                console.log("您已经在这个群组里了");
+                $("#remindMsg").text("你已经加入了该群");
+                $("#remindModal").modal();
             }
         }
     };
@@ -717,6 +737,15 @@ var leaveGroup = function (user,groupid) {
     };
     conn.leaveGroupBySelf(option);
 };// 成员主动退出群
+var dissolveGroup = function (groupid) {
+    var option = {
+        groupId: groupid,
+        success: function () {
+            console.log('Destroy group success!');
+        }
+    };
+    conn.dissolveGroup(option);
+};//解散群
 var getGroupInfo = function(gid){
     var options = {
     groupId: gid,
@@ -734,7 +763,10 @@ var getGroupAdmin = function(gid){
         pageNum: pageNum,
         pageSize: pageSize,
         groupId: gid,
-        success: function (resp) {console.log("Response: ", resp.data[resp.data.length-1].owner)},
+        success: function (resp) {
+            var a = resp.data[resp.data.length-1].owner;
+            curOwner = a;
+        },
         error: function(e){}
     };
     conn.listGroupMember(options);
@@ -745,6 +777,7 @@ var curAcceptMsgObj = null; //当前接受消息对象
 var curAcceptMsgObjType = null;//当前接受消息对象类型
 var curAcceptMsgObjDivId = null; //当前接受消息对象Divid
 var curChatGroupId = null; //
+var curOwner = null;
 var bothRoster = []; //好友id
 var toRoster = []; //到好友id
 var redPCache = {};
@@ -782,17 +815,29 @@ var chatMenuClick = function(){
         }).text("删除好友").click(removeFriendsClick);
         $(".chat-box-hd a ul").append(li);
     }else if (curAcceptMsgObjType == "groupchat") {
-        var id = $("#"+curAcceptMsgObjDivId.replace(/Chat/,"List")).attr("hidename");
-        var lia = $('<li>').attr({
-            "class" : "list-group-item"
-        }).text("群ID："+id);
-        var li = $('<li>').attr({
-            "id" : "quitGroups",
-            "class" : "list-group-item"
-        }).text("退出群组").click(leaveGroupClick);
-        $(".chat-box-hd a ul").append(li);
-        $(".chat-box-hd a ul").append(lia);
-        getGroupAdmin(id);
+        if (curOwner == curUserId) {
+            var id = $("#"+curAcceptMsgObjDivId.replace(/Chat/,"List")).attr("hidename");
+            var lia = $('<li>').attr({
+                "class" : "list-group-item"
+            }).text("群ID："+id);
+            var li = $('<li>').attr({
+                "id" : "quitGroups",
+                "class" : "list-group-item"
+            }).text("解散群组").click(unGroupClick);
+            $(".chat-box-hd a ul").append(li);
+            $(".chat-box-hd a ul").append(lia);
+        }else{
+            var id = $("#"+curAcceptMsgObjDivId.replace(/Chat/,"List")).attr("hidename");
+            var lia = $('<li>').attr({
+                "class" : "list-group-item"
+            }).text("群ID："+id);
+            var li = $('<li>').attr({
+                "id" : "quitGroups",
+                "class" : "list-group-item"
+            }).text("退出群组").click(leaveGroupClick);
+            $(".chat-box-hd a ul").append(li);
+            $(".chat-box-hd a ul").append(lia);
+        }
     }
     $(".chat-box-hd a ul").toggleClass("hide");
 };// 点击聊天菜单事件
@@ -819,6 +864,18 @@ var leaveGroupClick = function(){
     curAcceptMsgObj = null;
     curAcceptMsgObjType = null;
 };//点击退出群组事件
+var unGroupClick = function(){
+    var a = curAcceptMsgObjDivId.replace(/Chat/,"List");
+    var id = $("#"+a).attr("hidename");
+    dissolveGroup(id);
+    $("#"+curAcceptMsgObjDivId).remove();
+    $("#"+a).remove();
+    $(chatBox).addClass("hide");
+    $(chatCover).removeClass("hide");
+    curAcceptMsgObjDivId = null;
+    curAcceptMsgObj = null;
+    curAcceptMsgObjType = null;
+}//点击解散群组事件
 var createGroupsClick = function(){
     var value = $("#createGroupName").val();
     var info = $("#createGroupInfo").val();
@@ -886,6 +943,9 @@ var chooseListDivClick = function(li) {
 	var chooseObjId = li.id; 
     var chooseObjDivId = chooseObjId.replace(/List/,"Chat");
     var chooseAcceptMsgObj = $("#"+chooseObjId).attr('hidename');
+    if (li.type == "groupchat") {
+        getGroupAdmin(chooseAcceptMsgObj);
+    }
     // 如果当前接受消息对象id为空
     if (curAcceptMsgObj == null && curAcceptMsgObjDivId == null) { 
         $(chatCover).addClass("hide");
