@@ -7,6 +7,13 @@ window.onload = function() {
         }
     }); 
     setMainMargin();//动态设置聊天窗口的margin
+    $("#file").change(function(){
+        if (curAcceptMsgObjType == "chat") {
+            sendPrivatePicture("file");
+        }else if (curAcceptMsgObjType == "groupchat") {
+            sendGroupPicture("file");
+        }
+    })
 	$("#login").click(loginClick);
 	$("#register").click(registerClick);
 	$("#logout").click(logoutClick);
@@ -52,7 +59,7 @@ var chatObj = ".chat-box-hd span";//聊天对象名字
 var textMsg = "#text";//需要发送的消息
 var chatBox = ".chat-box";//聊天盒子
 var chatCover = ".chat-cover";//聊天封面
-
+// var fileInput = "file";
 
 /*基本功能*/
 var conn = new WebIM.connection({
@@ -98,7 +105,51 @@ conn.listen({
 		};
 		options.onFileDownloadComplete = function() {
 			// 图片下载成功
+            var msgObjDivId = null;
+            var listObjIId = null;
+            if (message.type == "chat") {
+                msgObjDivId = "ChatRosters-"+message.from;
+                listObjIId = "ListRosters-" +message.from;
+            }else if (message.type == "groupchat") {
+                msgObjDivId = "ChatGroups-"+message.to;
+                listObjIId = "ListGroups-"+message.to;
+            }
+            // 把接受的消息添加进消息盒子中
+            var chatdiv = $('<div>').attr({
+                'class': 'otherMsg'
+            });
+            $('<img>').attr({
+                'src': './demo/img/bb.jpg',
+                'width': '40px',
+                'height': '40px',
+                'id':'limg'
+            }).appendTo(chatdiv);
+            console.log(message);
+            $('<h4>').text(message.from).appendTo(chatdiv);
+            var span = $('<span>').appendTo(chatdiv);
+            $('<img>').attr({
+                'src': message.url,
+                'width': '300px',
+            }).appendTo(span);
+            $('#' + msgObjDivId).append(chatdiv);
+            // 小红点添加
+            if (curAcceptMsgObjDivId == null  || msgObjDivId != curAcceptMsgObjDivId) {
+                if(msgObjDivId in redPCache) {
+                    var redIVal = $("#"+listObjIId + " i").text();
+                    redIVal = parseInt(redIVal) + 1;
+                    $("#"+listObjIId + " i").text(redIVal);
+                } else {
+                    var redI = $('<i>').attr({
+                        "id": "redP-" + msgObjDivId
+                    }).text(1);
+                    $("#" + listObjIId).append(redI);
+                    redPCache[msgObjDivId] = true;
+                };
+            }
 			console.log('图片下载成功!');
+            console.log(message);
+
+           
 		};
 		options.onFileDownloadError = function() {
 			// 图片下载失败
@@ -397,11 +448,12 @@ var handleTextMessage = function(message){
     $('<img>').attr({
         'src': './demo/img/bb.jpg',
         'width': '40px',
-        'height': '40px'
+        'height': '40px',
+        "id": 'limg'
     }).appendTo(chatdiv);
     console.log(message);
     $('<h4>').text(message.from).appendTo(chatdiv);
-    $('<span>').text(message.data).appendTo(chatdiv);
+    $('<span>').html(message.data).appendTo(chatdiv);
     $('#' + msgObjDivId).append(chatdiv);
     // 小红点添加
     if (curAcceptMsgObjDivId == null  || msgObjDivId != curAcceptMsgObjDivId) {
@@ -486,6 +538,123 @@ var sendGroupText = function (text, obj) {
     msg.setGroup('groupchat');
     conn.send(msg.body);
 };// 群组发送文本消息
+var sendPrivatePicture = function(obj){
+            var id = conn.getUniqueId();
+            var msg = new WebIM.message('img', id);
+            var input = document.getElementById(obj);               // 选择图片的input
+            var file = WebIM.utils.getFileUrl(input);                   // 将图片转化为二进制文件
+            var allowType = {
+                'jpg': true,
+                'gif': true,
+                'png': true,
+                'bmp': true
+            };
+
+            var option = {
+                apiUrl: WebIM.config.apiURL,
+                file: file,
+                to: curAcceptMsgObj,
+                roomType: false,
+                chatType: 'singleChat',
+                onFileUploadError: function () {
+                    console.log('onFileUploadError');
+                },
+                onFileUploadComplete: function (data) {
+                    console.log('onFileUploadComplete');
+                    console.log(data);
+                    var chatdiv = $('<div>').attr({
+                        'class': 'myMsg'
+                    });
+                    $('<img>').attr({
+                        'src': './demo/img/tx.jpg',
+                        'width': '40px',
+                        'height': '40px',
+                        'id': 'rimg'
+                    }).appendTo(chatdiv);
+                    var text = $("#text").text();
+                    var span = $('<span>').appendTo(chatdiv);
+                    $('<img>').attr({
+                        'src': data.uri+"/"+data.entities[0].uuid,
+                        'width': '300px',
+                        
+                    }).appendTo(span);
+                    $('#'+curAcceptMsgObjDivId).append(chatdiv);
+                },
+                success: function () {
+                    console.log('Success');
+                },
+            };
+            // for ie8
+            try {
+                if (!file.filetype.toLowerCase() in allowType) {
+                    console.log('file type error')
+                    return
+                }
+            } catch (e) {
+                option.flashUpload = WebIM.flashUpload
+            }
+            msg.set(option);
+            conn.send(msg.body);
+}//私聊发送图片
+var sendGroupPicture = function(obj){
+            var id = conn.getUniqueId();
+            var msg = new WebIM.message('img', id);
+            var input = document.getElementById(obj);               // 选择图片的input
+            var file = WebIM.utils.getFileUrl(input);                   // 将图片转化为二进制文件
+            var allowType = {
+                'jpg': true,
+                'gif': true,
+                'png': true,
+                'bmp': true
+            };
+
+            var option = {
+                apiUrl: WebIM.config.apiURL,
+                file: file,
+                to: curAcceptMsgObj,
+                roomType: false,
+                chatType: 'chatRoom',
+                onFileUploadError: function () {
+                    console.log('onFileUploadError');
+                },
+                onFileUploadComplete: function (data) {
+                    console.log('onFileUploadComplete');
+                    console.log(data);
+                    var chatdiv = $('<div>').attr({
+                        'class': 'myMsg'
+                    });
+                    $('<img>').attr({
+                        'src': './demo/img/tx.jpg',
+                        'width': '40px',
+                        'height': '40px',
+                        'id': 'rimg'
+                    }).appendTo(chatdiv);
+                    var text = $("#text").text();
+                    var span = $('<span>').appendTo(chatdiv);
+                    $('<img>').attr({
+                        'src': data.uri+"/"+data.entities[0].uuid,
+                        'width': '300px',
+                        
+                    }).appendTo(span);
+                    $('#'+curAcceptMsgObjDivId).append(chatdiv);
+                },
+                success: function () {
+                    console.log('Success');
+                },
+            };
+            // for ie8
+            try {
+                if (!file.filetype.toLowerCase() in allowType) {
+                    console.log('file type error')
+                    return
+                }
+            } catch (e) {
+                option.flashUpload = WebIM.flashUpload
+            }
+            msg.set(option);
+            msg.setGroup('groupchat');
+            conn.send(msg.body);
+}//群聊发送图片
 var addFriends = function(name,msg) {
     if (name != null && name != "") {
         conn.subscribe({
@@ -664,12 +833,12 @@ var faceBoxClick = function(){
     $(".face ul").toggleClass("hide");
 };//表情盒子点击事件
 var sendClick = function() {
-    var text = $("#text").text();
-    if (text != null && text != "") {
+    var html = $("#text").html();
+    if (html != null && html != "") {
         if (curAcceptMsgObjType == "chat") {  
-            sendPrivateText(text, curAcceptMsgObj);
+            sendPrivateText(html, curAcceptMsgObj);
         }else if(curAcceptMsgObjType == "groupchat"){
-            sendGroupText(text, curAcceptMsgObj);
+            sendGroupText(html, curAcceptMsgObj);
         }
         // 把发送的消息添加进消息盒子中
         var chatdiv = $('<div>').attr({
@@ -678,13 +847,14 @@ var sendClick = function() {
         $('<img>').attr({
             'src': './demo/img/tx.jpg',
             'width': '40px',
-            'height': '40px'
+            'height': '40px',
+            'id':'rimg'
         }).appendTo(chatdiv);
-        var text = $("#text").text();
-        $('<span>').text(text).appendTo(chatdiv);
+        var text = $("#text").html();
+        $('<span>').html(text).appendTo(chatdiv);
         $('#'+curAcceptMsgObjDivId).append(chatdiv);
         // 清空输入框内容
-        $(textMsg).text(null);
+        $(textMsg).text("");
     }  
 };// 点击发送按钮处理的事件
 var chooseFaceClick =function (li){
@@ -693,8 +863,8 @@ var chooseFaceClick =function (li){
     // console.log(a);
     var text0 = $(li).attr('key');
     var text1 = $("#text").text();
-     $("#text").text(text1+text0+a);
-    // $("#text").append(a);
+     // $("#text").text(text1+text0+a);
+    $("#text").append(a);
     var b =WebIM.utils.parseEmoji(text0);
     console.log(b);
 };//选择表情事件
@@ -737,7 +907,6 @@ var chooseListDivClick = function(li) {
 };//选择列表事件
 
 var buildCreateGroupsDiv = function(){
-   
 } 
 
 var setMainMargin = function(){
