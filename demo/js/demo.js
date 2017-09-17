@@ -5,7 +5,7 @@ window.onload = function() {
         if (event.keyCode ==13 && event.ctrlKey) {
             sendClick();
         }
-    }); 
+    });
     setMainMargin();//动态设置聊天窗口的margin
     $("#file").change(function(){
         if (curAcceptMsgObjType == "chat") {
@@ -133,6 +133,8 @@ conn.listen({
                 'width': '300px',
             }).appendTo(span);
             $('#' + msgObjDivId).append(chatdiv);
+            setTimeout(function(){scrollBottom('#'+msgObjDivId);}, 500);
+
             // 小红点添加
             if (curAcceptMsgObjDivId == null  || msgObjDivId != curAcceptMsgObjDivId) {
                 if(msgObjDivId in redPCache) {
@@ -460,6 +462,7 @@ var handleTextMessage = function(message){
     $('<h4>').text(message.from).appendTo(chatdiv);
     $('<span>').html(message.data).appendTo(chatdiv);
     $('#' + msgObjDivId).append(chatdiv);
+    scrollBottom('#'+msgObjDivId);
     // 小红点添加
     if (curAcceptMsgObjDivId == null  || msgObjDivId != curAcceptMsgObjDivId) {
         if(msgObjDivId in redPCache) {
@@ -474,7 +477,6 @@ var handleTextMessage = function(message){
             redPCache[msgObjDivId] = true;
         };
     }
-    
     // console.log(message);
 };//处理接受文字消息
 
@@ -587,9 +589,10 @@ var sendPrivatePicture = function(obj){
                     $('<img>').attr({
                         'src': data.uri+"/"+data.entities[0].uuid,
                         'width': '300px',
-                        
                     }).appendTo(span);
                     $('#'+curAcceptMsgObjDivId).append(chatdiv);
+                    console.log($('#' + curAcceptMsgObjDivId).prop("scrollHeight"));
+                    setTimeout(function(){scrollBottom('#'+curAcceptMsgObjDivId);}, 500);
                 },
                 success: function () {
                     console.log('Success');
@@ -643,9 +646,10 @@ var sendGroupPicture = function(obj){
                     $('<img>').attr({
                         'src': data.uri+"/"+data.entities[0].uuid,
                         'width': '300px',
-                        
                     }).appendTo(span);
                     $('#'+curAcceptMsgObjDivId).append(chatdiv);
+                    // 图片延时
+                    setTimeout(function(){scrollBottom('#'+curAcceptMsgObjDivId);}, 500);
                 },
                 success: function () {
                     console.log('Success');
@@ -892,7 +896,7 @@ var faceBoxClick = function(){
 var sendClick = function() {
     var html = $("#text").html();
     if (html != null && html != "") {
-        if (curAcceptMsgObjType == "chat") {  
+        if (curAcceptMsgObjType == "chat") {
             sendPrivateText(html, curAcceptMsgObj);
         }else if(curAcceptMsgObjType == "groupchat"){
             sendGroupText(html, curAcceptMsgObj);
@@ -910,9 +914,10 @@ var sendClick = function() {
         var text = $("#text").html();
         $('<span>').html(text).appendTo(chatdiv);
         $('#'+curAcceptMsgObjDivId).append(chatdiv);
+        scrollBottom('#'+curAcceptMsgObjDivId);
         // 清空输入框内容
         $(textMsg).text("");
-    }  
+    }
 };// 点击发送按钮处理的事件
 var chooseFaceClick =function (li){
     
@@ -926,7 +931,9 @@ var chooseFaceClick =function (li){
     console.log(b);
 };//选择表情事件
 
-
+var scrollBottom = function(obj){
+    $(obj).scrollTop($(obj).prop("scrollHeight"));
+}//让聊天窗口滚动条处于底部
 var divHide = function(e) {
 	var name = $(e).attr('id');
 	var x = name.split("-");
@@ -967,7 +974,7 @@ var chooseListDivClick = function(li) {
 };//选择列表事件
 
 var buildCreateGroupsDiv = function(){
-} 
+}
 
 var setMainMargin = function(){
     if ($(window).height() <= 750) {
