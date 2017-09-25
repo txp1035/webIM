@@ -173,7 +173,7 @@ body{
 }
 .tab a{
 	float: left;
-	width: 33.33333333%;
+	width: 50%;
 	text-align: center;
 	/*height: 35px;*/
 }
@@ -183,17 +183,19 @@ body{
 	width: 35px;
 	height: 35px;
 }
-#friend_group-msg{
+/* #friend_group-msg{
 	background: url(../img/icon.png) no-repeat;
 	background-position: -185px -96px;
-}
+} */
 #group_msg-friend{
 	background: url(../img/icon.png) no-repeat;
-	background-position: -220px -96px;
+	/* background-position: -220px -96px; */
+	background-position: -185px -96px;
 }
 #friend_msg-group{
 	background: url(../img/icon.png) no-repeat;
-	background-position: -376px -322px;
+	/* background-position: -376px -322px; */
+	background-position: -220px -96px;
 }
 .chat-list-content{
 	position: absolute;
