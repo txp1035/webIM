@@ -21,23 +21,23 @@ window.onload = function() {
 	$("#loginPage-registerPage").click(function(){divHide(this);});
 	$("#registerPage-loginPage").click(function(){divHide(this);});
 	$("#group_msg-friend").click(function(){
-        $("#friend_msg-group").css("background-position","-376px -322px")
-        $("#friend_group-msg").css("background-position","-150px -96px")
-        $("#group_msg-friend").css("background-position","-304px -246px")
+        $("#friend_msg-group").css("background-position","-220px -96px")
+        // $("#friend_group-msg").css("background-position","-150px -96px")
+        $("#group_msg-friend").css("background-position","-185px -96px")
         divHide(this);
     });
 	$("#friend_msg-group").click(function(){
-        $("#friend_msg-group").css("background-position","-304px -281px")
-        $("#friend_group-msg").css("background-position","-150px -96px")
-        $("#group_msg-friend").css("background-position","-220px -96px")
+        $("#friend_msg-group").css("background-position","-304px -246px")
+        // $("#friend_group-msg").css("background-position","-150px -96px")
+        $("#group_msg-friend").css("background-position","-150px -96px")
         divHide(this);
     });
-	$("#friend_group-msg").click(function(){
-        $("#friend_msg-group").css("background-position","-376px -322px")
-        $("#friend_group-msg").css("background-position","-185px -96px")
-        $("#group_msg-friend").css("background-position","-220px -96px")
-        divHide(this);
-    });
+	// $("#friend_group-msg").click(function(){
+    //     $("#friend_msg-group").css("background-position","-376px -322px")
+    //     $("#friend_group-msg").css("background-position","-185px -96px")
+    //     $("#group_msg-friend").css("background-position","-220px -96px")
+    //     divHide(this);
+    // });
 	$("#send").click(sendClick);  
     $(".chat-box-hd a").click(chatMenuClick)
     $(".list-menu").click(listMenuClick);
