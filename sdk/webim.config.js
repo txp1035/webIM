@@ -18,7 +18,7 @@ WebIM.config = {
     /*
      * Application AppKey
      */
-    appkey: '1180170811178001#webdemo',
+    appkey: '1180170811178001#webim',
 
     /*
      * Whether to use wss
