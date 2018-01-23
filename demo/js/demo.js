@@ -80,7 +80,7 @@ conn.listen({
 		// 手动上线指的是调用conn.setPresence(); 如果conn初始化时已将isAutoLogin设置为true
 		// 则无需调用conn.setPresence();       
 		// 连接成功才可以发送消息      
-		console.log("%c [opened] 连接已成功建立", "color: green");
+		console.log("%c 环信已成功连接", "color: green");
 		handleOpen(conn);
 
 	},
