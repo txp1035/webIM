@@ -1,7 +1,7 @@
 {
   "name": "webim-easemob",
   "version": "1.0.0",
-  "description": "",
+  "description": "这是一款web通讯界面",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
