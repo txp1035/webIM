@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/ShawDanon/webIM-easemob/issues"
   },
-  "homepage": "https://github.com/ShawDanon/webIM-easemob#readme"
+  "homepage": "https://github.com/ShawDanon/webIM-easemob#readme",
+  "devDependencies": {
+    "webpack": "^4.1.1"
+  }
 }
