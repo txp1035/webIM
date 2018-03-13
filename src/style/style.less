@@ -1,0 +1,80 @@
+@theme-color: #2E3238;
+body, ul, li, a, p, h2, h3, textarea, button, input, select {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-decoration: none;
+    border: none;
+    &:focus {
+        outline: none;
+    }
+    font-size: 14px;
+}
+body{
+  background-image: url("../img/bg.jpg");
+  background-size: cover;
+}
+
+#app{
+  display: flex;
+  justify-content: center;
+  align-items:center;
+  height: 100vh;
+  width: 100vw;
+}
+.Login{
+  display: flex;
+  justify-content:center;
+  background: #fff;
+  box-shadow: rgba(0, 0, 0, 0.298039) 0px 0px 6px;
+  width: 400px;
+  height: 282px;
+  form{
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between ;
+    width: 300px;
+    height: 242px;
+    text-align: center;
+    h2{
+      height: 64px;
+      line-height: 64px;
+      font-size: 24px;
+      font-weight: 500;
+    }
+    input{
+      height: 36px;
+      border: 1px solid #e5e5e5;
+    }
+    button{
+      height: 36px;
+      background: #4eb1f4;
+      color: #FFF;
+      border: 1px solid #4eb1f4;
+      cursor: pointer;
+    }
+    p{
+      align-self:flex-start;
+      a{
+        color: #4eb1f4;
+        cursor: pointer;
+      }
+    }
+  }
+}//登录组件
+
+.Register{
+  .Login;
+  height: 328px;
+  form{
+    height: 288px;
+  }
+}//注册组件
+
+.Main{
+  width: 1000px;
+  min-width: 800px;
+  background: red;
+  height: 80%;
+  min-height: 600px;
+}
