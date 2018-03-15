@@ -13,7 +13,7 @@ var config = {
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.(js|jsx)$/,
                 use: ['babel-loader?cacheDirectory=true'],
                 include: path.join(__dirname, 'src')
             }, 

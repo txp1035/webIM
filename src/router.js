@@ -2,8 +2,8 @@ import React from 'react';
 
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
-import Main from './component/Main';
-import Login from './component/Login';
+import Main from './component/Main.jsx';
+import Login from './component/Login.jsx';
 
 
 const getRouter = () => (
