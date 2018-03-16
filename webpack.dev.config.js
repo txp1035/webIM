@@ -1,4 +1,5 @@
 const path = require('path');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var config = {
     /*入口*/
@@ -27,6 +28,9 @@ var config = {
             }
         ]
     },
+    plugins: [
+        new HtmlWebpackPlugin(),
+    ],
     devServer: {
         port: 8080,
         contentBase: path.join(__dirname, './dist'),

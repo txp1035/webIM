@@ -22,7 +22,7 @@ body{
   height: 100vh;
   width: 100vw;
 }
-.Login{
+.login-page{
   display: flex;
   justify-content:center;
   background: #fff;
@@ -63,18 +63,52 @@ body{
   }
 }//登录组件
 
-.Register{
-  .Login;
+.register-page{
+  .login-page;
   height: 328px;
   form{
     height: 288px;
   }
 }//注册组件
 
-.Main{
+.main-page{
+  display: flex;
   width: 1000px;
   min-width: 800px;
-  background: red;
+  background: @theme-color;
   height: 80%;
   min-height: 600px;
-}
+  .user-info-box{
+    width: 280px;
+    height: 100%;
+    .uib-top{
+      display: flex;
+      align-items: center;
+      padding: 18px;
+      img{
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+      }
+      span{
+        color: #fff;
+        font-size: 18px;
+        width: 156px;
+      }
+      button{
+        width: 30px;
+        height: 30px;
+        margin-left: 8px;
+      }
+    }//顶部个人信息
+    .uib-search{
+      
+    }
+  }//用户信息盒子
+  .chat-box{
+    width: 720px;
+    min-width: 520px;
+    height: 100%;
+    background: blue;
+  }//聊天盒子
+}//聊天页面
