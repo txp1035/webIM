@@ -14,8 +14,7 @@ body{
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   background-image: url("../img/bg.jpg");
   background-size: cover;
-}
-
+} 
 #app{
   display: flex;
   justify-content: center;
@@ -80,8 +79,8 @@ body{
   height: 80%;
   min-height: 600px;
   .user-info-box{
+    position: relative;
     width: 280px;
-    height: 100%;
     .uib-top{
       display: flex;
       align-items: center;
@@ -124,9 +123,8 @@ body{
         color: #fff;
         font-size: 12px;
       }
-    }
+    }//搜索栏
     .uib-bottom{
-      height: 100%;
       .nav{
         display: flex;
         height: 35px;
@@ -143,9 +141,19 @@ body{
         
       }
       .list{
-        height: 80%;
-        min-height: 430px;
+        position: absolute;
+        top: 153px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
         overflow-y: auto;
+        &::-webkit-scrollbar{
+          width:8px;
+        }
+        &::-webkit-scrollbar-thumb{
+          background:#404449;
+          border-radius:4px;
+        }
         .list-pro{
           display: flex;
           color: #fff;
@@ -164,7 +172,7 @@ body{
           }
         }
       }
-    }
+    }//底部用户列表
   }//用户信息盒子
   .chat-box{
     width: 720px;
