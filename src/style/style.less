@@ -8,9 +8,10 @@ body, ul, li, a, p, h2, h3, textarea, button, input, select {
     &:focus {
         outline: none;
     }
-    font-size: 14px;
 }
 body{
+  font-size: 14px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   background-image: url("../img/bg.jpg");
   background-size: cover;
 }
@@ -95,14 +96,74 @@ body{
         font-size: 18px;
         width: 156px;
       }
-      button{
-        width: 30px;
-        height: 30px;
+      i{
+        color: #6E6E6F;
+        font-size: 20px;
         margin-left: 8px;
+        cursor: pointer;
       }
     }//顶部个人信息
     .uib-search{
-      
+      display: flex;
+      justify-content: center;
+      margin-bottom: 6px;
+      i{
+        width: 32px;
+        height: 32px;
+        background: #26292E;
+        color: #939497;
+        font-size: 18px;
+        text-align: center;
+        line-height: 32px;
+      }
+      input{
+        width: 204px;
+        height: 32px;
+        padding-right: 10px;
+        background: #26292E;
+        color: #fff;
+        font-size: 12px;
+      }
+    }
+    .uib-bottom{
+      height: 100%;
+      .nav{
+        display: flex;
+        height: 35px;
+        border-bottom: 1px solid #24272c;
+        .nav-button{
+          width: 50%;
+          text-align: center;
+          i{
+            font-size: 30px;
+            color: #fff;
+            cursor: pointer;
+          }
+        }
+        
+      }
+      .list{
+        height: 80%;
+        min-height: 430px;
+        overflow-y: auto;
+        .list-pro{
+          display: flex;
+          color: #fff;
+          padding: 12px 10px 11px;
+          border-bottom: 1px solid #292c33;
+          &:hover{
+            background: #3A3F45;
+            cursor: pointer;
+          }
+          img{
+            width: 40px;
+            height: 40px;
+          }
+          span{
+            margin-left: 10px;
+          }
+        }
+      }
     }
   }//用户信息盒子
   .chat-box{

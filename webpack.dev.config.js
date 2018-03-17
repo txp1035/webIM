@@ -19,7 +19,7 @@ var config = {
                 include: path.join(__dirname, 'src'),
             },
             {
-                test: /\.less$/,
+                test: /\.(css|less)$/,
                 use: ['style-loader', 'css-loader', "less-loader"],
                 include: path.join(__dirname, 'src'),
             },
