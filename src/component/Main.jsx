@@ -8,7 +8,7 @@ class Main extends Component {
                 <div className="user-info-box">
                     <div className="uib-top">
                         <img src={userImg} alt="用户头像" />
-                        <span>123</span>
+                        <span>111123</span>
                         <button></button>
                     </div>
                     <input type="text" name="" id="" placeholder="搜索" />

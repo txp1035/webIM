@@ -15,21 +15,25 @@ var config = {
         rules: [
             {
                 test: /\.(js|jsx)$/,
-                use: ['babel-loader?cacheDirectory=true'],
-                include: path.join(__dirname, 'src')
-            }, 
-            {
-                test: /\.less$/,
-                use: ['style-loader', 'css-loader', "less-loader"]
+                use: ['cache-loader','babel-loader?cacheDirectory=true'],
+                include: path.join(__dirname, 'src'),
             },
             {
-                test: /\.(jpe?g|png|gif|svg)$/,
-                loader: 'url-loader' // copy文件的loader
+                test: /\.less$/,
+                use: ['style-loader', 'css-loader', "less-loader"],
+                include: path.join(__dirname, 'src'),
+            },
+            {
+                test: /\.(png|jpg|gif|ttf|eot|woff|woff2|svg|swf)$/,
+                loader: 'url-loader', // copy文件的loader
+                include: path.join(__dirname, 'src'),
             }
         ]
     },
     plugins: [
-        new HtmlWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            template: "index.html"
+        }),
     ],
     devServer: {
         port: 8080,
