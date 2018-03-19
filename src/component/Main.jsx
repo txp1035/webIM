@@ -4,6 +4,7 @@ import NavButton from './NavButton.jsx'
 import ListPro from './ListPro.jsx'
 import MyMsg from './MyMsg.jsx'
 import OtherMsg from './OtherMsg.jsx'
+import ToolBar from './ToolBar.jsx'
 
 class Main extends Component {
     render() {
@@ -61,7 +62,17 @@ class Main extends Component {
                         <MyMsg />
                         <OtherMsg />
                     </div>
-                    <div className="cb-bottom"></div>
+                    <div className="cb-bottom">
+                        <span>
+                            <ToolBar name="iconfont icon-face1"/>
+                            <ToolBar name="iconfont icon-3801wenjian"/>
+                        </span>
+                        <div className="input" contenteditable="true"></div>
+                        <div className="submit">
+                            <a href="javascript:;">发送</a>
+                            <span>按下Ctrl+Enter发送消息</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         )

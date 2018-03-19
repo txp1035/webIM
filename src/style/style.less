@@ -206,12 +206,12 @@ body{
       overflow-y: auto;
       text-align: left;     
       &::-webkit-scrollbar{
-          width:8px;
-        }
-        &::-webkit-scrollbar-thumb{
-          background:#c3c3c3;
-          border-radius:4px;
-        }
+        width:8px;
+      }
+      &::-webkit-scrollbar-thumb{
+        background:#c3c3c3;
+        border-radius:4px;
+      }
       .my-msg{
         display: flex;
         flex-direction: row-reverse;
@@ -253,6 +253,8 @@ body{
       }
     }
     .cb-bottom{
+      display: flex;
+      flex-direction: column;
       height: 179px;
       margin-right: 19px;
       border-top: 1px solid #d6d6d6;
@@ -260,6 +262,44 @@ body{
       right: 0;
       bottom: 0;
       left: 0;        
+      span{
+        display: flex;
+        height: 30px;
+        padding: 5px 17px;
+        i{
+          font-size: 28px;
+          margin-right: 10px;
+          cursor: pointer;
+        }
+      }
+      .input{         
+        &::-webkit-scrollbar{
+          width:8px;
+        }
+        &::-webkit-scrollbar-thumb{
+          background:#c3c3c3;
+          border-radius:4px;
+        }
+        box-sizing: content-box;
+        height: 6em;
+        overflow-x: hidden;
+        overflow-y: auto;
+        outline: none;
+        margin-left: 20px;
+      }
+      .submit{
+        display: flex;
+        flex-direction: row-reverse;
+        height: 28px;
+        padding-top: 5px;
+        a{
+        padding: 3px 30px;
+        color: #222;
+        border: 1px solid #c1c1c1;
+        background: #FFF;
+        text-decoration: none;
+        }
+      }
     }
   }//聊天盒子
 }//聊天页面
