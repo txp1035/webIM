@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import userImg from '../img/bg.jpg'
 import NavButton from './NavButton.jsx'
 import ListPro from './ListPro.jsx'
-import MyMsg from './MyMsg.jsx'
-import OtherMsg from './OtherMsg.jsx'
-import ToolBar from './ToolBar.jsx'
+import CharBox from './CharBox.jsx'
+import Cover from './Cover.jsx'
+
 
 class Main extends Component {
     render() {
@@ -49,31 +49,8 @@ class Main extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="chat-box">
-                    <div className="cb-top">
-                        <span>123</span>
-                        <i className="iconfont icon-nav-more"></i>
-                    </div>
-                    <div className="cb-content">
-                        <MyMsg />
-                        <OtherMsg />
-                        <MyMsg />
-                        <OtherMsg />
-                        <MyMsg />
-                        <OtherMsg />
-                    </div>
-                    <div className="cb-bottom">
-                        <span>
-                            <ToolBar name="iconfont icon-face1"/>
-                            <ToolBar name="iconfont icon-3801wenjian"/>
-                        </span>
-                        <div className="input" contenteditable="true"></div>
-                        <div className="submit">
-                            <a href="javascript:;">发送</a>
-                            <span>按下Ctrl+Enter发送消息</span>
-                        </div>
-                    </div>
-                </div>
+                <CharBox />
+                {/* <Cover /> */}
             </div>
         )
     }
