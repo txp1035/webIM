@@ -16,11 +16,14 @@ body{
   background-size: cover;
 } 
 #app{
-  display: flex;
+  
+  .Router{
+    display: flex;
   justify-content: center;
   align-items:center;
   height: 100vh;
   width: 100vw;
+  }
 }
 .login-page{
   display: flex;
@@ -100,6 +103,27 @@ body{
         font-size: 20px;
         margin-left: 8px;
         cursor: pointer;
+        position: relative;
+        ul{
+          position: absolute;
+          right: 0;
+          top:30px;
+          background: #fff;
+          -webkit-border-radius: 10px;
+          font-size: 14px;
+          z-index: 1;
+          li{
+            height: 50px;
+            width: 150px;
+            text-align: center;
+            line-height: 50px;
+            border-bottom: 1px solid #f1f1f1;
+            -webkit-border-radius: 10px;
+            &:hover{
+              background: #f8f8f8;
+            }
+          }
+        }
       }
     }//顶部个人信息
     .uib-search{

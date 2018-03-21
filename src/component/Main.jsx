@@ -3,7 +3,6 @@ import userImg from '../img/bg.jpg'
 import NavButton from './NavButton.jsx'
 import ListPro from './ListPro.jsx'
 import CharBox from './CharBox.jsx'
-import Cover from './Cover.jsx'
 
 
 class Main extends Component {
@@ -14,7 +13,14 @@ class Main extends Component {
                     <div className="uib-top">
                         <img src={userImg} alt="用户头像" />
                         <span>111123</span>
-                        <i className="iconfont icon-nav"></i>
+                        <i className="iconfont icon-nav">
+                            <ul>
+                                <li>添加好友</li>
+                                <li>添加群组</li>
+                                <li>创建群组</li>
+                                <li><a href="#/Login">退出登录</a></li>
+                            </ul>
+                        </i>
                     </div>
                     <div className="uib-search">
                         <i className="iconfont icon-search"></i>
@@ -50,7 +56,6 @@ class Main extends Component {
                     </div>
                 </div>
                 <CharBox />
-                {/* <Cover /> */}
             </div>
         )
     }
