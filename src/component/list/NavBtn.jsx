@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 
-class NavButton extends Component {
+class NavBtn extends Component {
     render() {
         return (
-            <div className="nav-button">
+            <div className="nav-btn">
                 <i className={this.props.name}></i>
             </div>
         )
     }
 }
-export default NavButton;
+export default NavBtn;

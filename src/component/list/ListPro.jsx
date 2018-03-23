@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import userImg from '../img/bg.jpg'
+import userImg from '../../img/bg.jpg'
 
 class ListPro extends Component {
     render() {

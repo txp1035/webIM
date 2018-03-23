@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import userImg from '../img/bg.jpg'
+import userImg from '../../img/bg.jpg'
 
-class MyMsg extends Component {
+class OtherMsg extends Component {
     render() {
         return (
-            <div className="my-msg">
-                <img src={userImg} alt=""/>
+            <div className="other-msg">
+                <img src={userImg} alt="" />
                 <div></div>
                 <span>11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111</span>
             </div>
         )
     }
 }
-export default MyMsg;
+export default OtherMsg;

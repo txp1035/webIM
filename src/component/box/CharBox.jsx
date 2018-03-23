@@ -6,11 +6,7 @@ import ToolBar from './ToolBar.jsx'
 class CharBox extends Component {
     render() {
         return (
-            <div className="chat-box">
-                <div className="cb-top">
-                    <span>123</span>
-                    <i className="iconfont icon-nav-more"></i>
-                </div>
+            <div>
                 <div className="cb-content">
                     <MyMsg />
                     <OtherMsg />

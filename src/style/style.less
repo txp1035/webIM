@@ -1,5 +1,5 @@
 @theme-color: #2E3238;
-body, ul, li, a, p, h2, h3, textarea, button, input, select {
+body, ul, li, a, p, h2, h3,h4, textarea, button, input, select {
     padding: 0;
     margin: 0;
     list-style: none;
@@ -8,6 +8,9 @@ body, ul, li, a, p, h2, h3, textarea, button, input, select {
     &:focus {
         outline: none;
     }
+}
+button{
+  cursor: pointer;
 }
 body{
   font-size: 14px;
@@ -25,7 +28,7 @@ body{
   width: 100vw;
   }
 }
-.login-page{
+.login{
   display: flex;
   justify-content:center;
   background: #fff;
@@ -54,7 +57,6 @@ body{
       background: #4eb1f4;
       color: #FFF;
       border: 1px solid #4eb1f4;
-      cursor: pointer;
     }
     p{
       align-self:flex-start;
@@ -66,25 +68,25 @@ body{
   }
 }//登录组件
 
-.register-page{
-  .login-page;
+.register{
+  .login;
   height: 328px;
   form{
     height: 288px;
   }
 }//注册组件
 
-.main-page{
+.main{
   display: flex;
   width: 1000px;
   min-width: 800px;
   height: 80%;
   min-height: 600px;
-  .user-info-box{
+  .user-list{
     background: @theme-color;
     position: relative;
     width: 280px;
-    .uib-top{
+    .ui-top{
       display: flex;
       align-items: center;
       padding: 18px;
@@ -126,7 +128,7 @@ body{
         }
       }
     }//顶部个人信息
-    .uib-search{
+    .ui-search{
       display: flex;
       justify-content: center;
       margin-bottom: 6px;
@@ -148,12 +150,12 @@ body{
         font-size: 12px;
       }
     }//搜索栏
-    .uib-bottom{
+    .ui-bottom{
       .nav{
         display: flex;
         height: 35px;
         border-bottom: 1px solid #24272c;
-        .nav-button{
+        .nav-btn{
           width: 50%;
           text-align: center;
           i{
@@ -198,13 +200,13 @@ body{
       }
     }//底部用户列表
   }//用户信息盒子
-  .chat-box{
+  .main-right{
     background: #eee;
     width: 720px;
     min-width: 520px;
     height: 100%;
     position: relative;
-    .cb-top{
+    .mr-top{
       text-align: center;
       position: absolute;
       top: 0;
@@ -219,11 +221,14 @@ body{
         font-size: 12px;
       }    
     }
-    .cb-content{
+    .bl-mr-position{
       position: absolute;
       top: 51px;
       left: 0;
       right: 0;
+    }
+    .cb-content{
+      .bl-mr-position;
       bottom: 180px;
       padding: 10px 19px 0;
       overflow-x: hidden;
@@ -275,7 +280,7 @@ body{
           left: 40px;
         }
       }
-    }
+    }//聊天窗口界面
     .cb-bottom{
       display: flex;
       flex-direction: column;
@@ -327,12 +332,54 @@ body{
         }
         }
       }
+    }//聊天窗口底部
+    .user-info-box{
+      .bl-mr-position;
+      // bottom: 0px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 80px 0;
+      img{
+        width: 100px;
+        height: 100px;
+        margin-bottom: 22px;
+      }
+      h4{
+        font-weight: 400;
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+      p{
+        color: #888;
+      }
+      div{
+        display: flex;
+        flex-direction: column;
+        margin: 30px auto 40px;
+        span{
+
+        }
+      }
+      button{
+        width: 200px;
+        color: #fff;
+        line-height: 40px;
+        background-color: #42ac3e;
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+      }
     }
-  }//聊天盒子
+  }//右侧框架
   .cover{
-    .chat-box;
+    .main-right;
     display: flex;
     justify-content: center;
     align-items:center;
   }
 }//聊天页面
+
+.hide{
+  display: none;
+}

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 export default class Register extends Component {
     render() {
         return (
-            <div className="register-page">
+            <div className="register">
                 <form>
                     <h2>注册</h2>
                     <input type="text" placeholder="用户名"/>
