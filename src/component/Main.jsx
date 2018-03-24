@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import userImg from '../img/bg.jpg'
 import NavBtn from './list/NavBtn.jsx'
-import ListPro from './list/ListPro.jsx'
+import ChatListPro from './list/ChatListPro.jsx'
 import MainRight from './box/MainRight.jsx'
 
 class Main extends Component {
@@ -55,30 +55,30 @@ class Main extends Component {
                             <NavBtn name="iconfont icon-user" />
                         </div>
                         <div className="list">
-                            <ListPro />
-                            <ListPro />
-                            <ListPro />
-                            <ListPro />
-                            <ListPro />
-                            <ListPro />
-                            <ListPro />
-                            <ListPro />
-                            <ListPro />
-                            <ListPro />
-                            <ListPro />
-                            <ListPro />
-                            <ListPro />
-                            <ListPro />
-                            <ListPro />
-                            <ListPro />
-                            <ListPro />
-                            <ListPro />
-                            <ListPro />
-                            <ListPro />
+                            <ChatListPro />
+                            <ChatListPro />
+                            <ChatListPro />
+                            <ChatListPro />
+                            <ChatListPro />
+                            <ChatListPro />
+                            <ChatListPro />
+                            <ChatListPro />
+                            <ChatListPro />
+                            <ChatListPro />
+                            <ChatListPro />
+                            <ChatListPro />
+                            <ChatListPro />
+                            <ChatListPro />
+                            <ChatListPro />
+                            <ChatListPro />
+                            <ChatListPro />
+                            <ChatListPro />
+                            <ChatListPro />
+                            <ChatListPro />
                         </div>
                     </div>
                 </div>
-                <MainRight type="userinfo"/>
+                <MainRight type="cover"/>
             </div>
         )
     }

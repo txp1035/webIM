@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CharBox from './CharBox.jsx'
 import UserInfoBox from './UserInfoBox.jsx'
+import CopyRight from './CopyRight.jsx'
 
 class MainRight extends Component {
     render() {
@@ -11,9 +12,11 @@ class MainRight extends Component {
             title = "用户名";//需要修改
             titleIcon = <i className="iconfont icon-nav-more"></i>
             content = <CharBox />;
-        } else if (this.props.type == "userinfo"){
+        } else if (this.props.type == "userinfo") {
             title = "详细信息"
             content = <UserInfoBox />;
+        } else if (this.props.type == "cover") {
+            content = <CopyRight />;
         }
         return (
             <div className="main-right">
