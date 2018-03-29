@@ -26,6 +26,7 @@ class Main extends Component {
     }//登录点击事件
     menuClick() {
         this.setState({ menuList: "" });
+        return false;
     }//菜单点击事件
     bodyClick() {
         this.setState({ menuList: "hide" });

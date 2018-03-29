@@ -67,7 +67,9 @@ body{
     }
   }
 }//登录组件
-
+.hide{
+  display: none;
+}
 .register{
   .login;
   height: 328px;
@@ -204,11 +206,14 @@ body{
           background: #292d32;
         }
         .user-list-pro-c{
-          cursor: pointer;
           height: 30px;
           padding: 10px 18px 9px;
           border-bottom: 1px solid #292c33;
           display: flex;
+          &:hover{
+            background: #3A3F45;
+            cursor: pointer;
+          }
           img{
             width: 30px;
             height: 30px;
@@ -331,6 +336,26 @@ body{
           font-size: 28px;
           margin-right: 10px;
           cursor: pointer;
+          position: relative;
+          ul{
+            position: absolute;
+            left: 0px;
+            bottom: 30px;
+            width: 248px;
+            height: 180px;
+            background: #fff;
+            padding: 2px 5px ;
+            display: flex;
+            flex-wrap: wrap; 
+            justify-content:space-between;
+            align-items: center;
+            z-index: 2;
+            li{
+              background: red;
+              width: 32px;
+              height: 32px;
+            }
+          }
         }
       }
       .input{         
@@ -406,6 +431,3 @@ body{
   }//右侧框架
 }//聊天页面
 
-.hide{
-  display: none;
-}
