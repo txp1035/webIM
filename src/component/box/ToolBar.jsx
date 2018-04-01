@@ -13,12 +13,9 @@ class ToolBar extends Component {
         this.liClick = this.liClick.bind(this);
     }
     iClick() {
-        
         this.setState({ ul: "" });
-        e.nativeEvent.stopImmediatePropagation();
     }
     liClick(){
-        console.log("123")
         this.setState({ ul: "none" });
     }
     bodyClick() {
