@@ -1,5 +1,8 @@
 # webIM-easemob
-这是基于环信的一个web即时通讯（react版）
+这是基于环信的一个web即时通讯。
+默认分支：react版（开发中）
+分支一：jQuery版（完成）
+分支二：vue版（开发中）
  
 ## 依赖包说明
 ### babel
