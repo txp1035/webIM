@@ -4,7 +4,6 @@
   "description": "这是一款web通讯界面",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack --config webpack.config.js",
     "start": "webpack-dev-server --inline --config webpack.config.js --color --progress --open"
   },
