@@ -1,0 +1,20 @@
+{
+  "name": "webIM-easemob",
+  "version": "1.0.0",
+  "description": "这是基于环信的一个web即时通讯。  \r 默认分支：master版（目前在开发的）  \r 分支一：jQuery版（完成）  \r 分支二：vue版（开发中）  \r 分支三：react版（开发中）",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShawDanon/webIM-easemob.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ShawDanon/webIM-easemob/issues"
+  },
+  "homepage": "https://github.com/ShawDanon/webIM-easemob#readme"
+}
