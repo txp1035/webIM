@@ -16,5 +16,12 @@
   "bugs": {
     "url": "https://github.com/ShawDanon/webIM-easemob/issues"
   },
-  "homepage": "https://github.com/ShawDanon/webIM-easemob#readme"
+  "homepage": "https://github.com/ShawDanon/webIM-easemob#readme",
+  "dependencies": {
+    "vue": "^2.5.16"
+  },
+  "devDependencies": {
+    "webpack": "^4.5.0",
+    "webpack-dev-server": "^3.1.3"
+  }
 }
