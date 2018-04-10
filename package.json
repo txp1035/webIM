@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/ShawDanon/webIM-easemob#readme",
   "dependencies": {
+    "react": "^16.3.0",
+    "react-dom": "^16.3.0",
     "vue": "^2.5.16"
   },
   "devDependencies": {
