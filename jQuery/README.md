@@ -1,6 +1,6 @@
 # webIM-jQuery
 ### 测试账号和地址
-* demo地址：[http://shawdanon.github.io/webIM-easemob/](http://shawdanon.github.io/webIM-easemob/)
+* demo地址：[http://shawdanon.github.io/webIM/jQuery/index.html](http://shawdanon.github.io/webIM/jQuery/index.html)
 * 用户名：123 
 * 密码：123 
 * 用户名：456 

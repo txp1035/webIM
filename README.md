@@ -5,7 +5,7 @@
 文件三：vue版（开发中）  
  
 ### 测试账号和地址
-* demo地址：[http://shawdanon.github.io/webIM/](http://shawdanon.github.io/webIM/)
+* demo地址：[http://shawdanon.github.io/webIM/jQuery/index.html](http://shawdanon.github.io/webIM/jQuery/index.html)
 * 用户名：123 
 * 密码：123 
 * 用户名：456 
