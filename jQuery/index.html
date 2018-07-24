@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>demo</title>
+     <!-- Bootstrap.css -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- 配置信息 -->
+    <script src="./sdk/webim.config.js"></script>
+    <script src="./sdk/strophe-1.2.8.min.js"></script>
+    <!-- webSdk -->
+    <script src="./sdk/websdk-1.4.12.js"></script>
+    <!-- demo -->
+    <script src="demo/js/demo.js"></script>
+    <link rel="stylesheet" href="demo/css/demo.css">
+</head>
+<body>
+    <!-- 注册页面 -->
+    <div class="fpage center hide" id="registerPage">
+        <h2>注册界面</h2>
+        <input type="text" id="username" value placeholder="用户名"><br>
+        <input type="text" id="password" value placeholder="密码"><br>
+        <input type="text" id="nickname" value placeholder="昵称"><br>
+        <button id="register">注册</button>
+        <p>
+            <span>已有账号,</span>
+            <i id="registerPage-loginPage">登录</i>
+        </p>
+    </div>
+    <!-- 登录页面 -->
+    <div class="fpage center " id="loginPage">
+        <h2>登录</h2>
+        <input type="text" id="user" value placeholder="用户名"><br>
+        <input type="text" id="pwd" value placeholder="密码"><br>
+        <button id="login">登录</button>
+        <p>
+            <span>没有账号,</span>
+            <i id="loginPage-registerPage">现在注册</i>
+        </p>
+    </div>
+    <!-- 主界面 -->
+    <div class="main hide">
+        <div class="main-inner">
+            <!-- 聊天列表 -->
+            <div class="chat-list">
+                <div class="header">
+                    <div class="head-portrait"><img src="./demo/img/tx.jpg" alt="" width="40px" height="40px"></div>
+                    <div class="info">
+                        <span class="nikename">鬼厉</span>
+                        <a href="JavaScript:;" class="list-menu">
+                            <ul class="list-group hide">
+                              <li class="list-group-item" data-toggle="modal" data-target="#addFrendModal">添加好友</li>
+                              <li class="list-group-item" data-toggle="modal" data-target="#addGroupModal">添加群组</li>
+                              <li class="list-group-item" data-toggle="modal" data-target="#createGroupModal">创建群组</li>
+                              <li class="list-group-item" id="logout">退出登录</li>
+                            </ul>
+                        </a>
+                    </div>
+                </div>
+                <div class="search-bar">
+                    <i></i>
+                    <input type="text" placeholder="搜索暂时无法使用">
+                </div>
+                <div class="tab">
+                    <!-- <a href="JavaScript:;"><i id="friend_group-msg"></i></a> -->
+                    <a href="JavaScript:;"><i id="group_msg-friend"></i></a>
+                    <a href="JavaScript:;"><i id="friend_msg-group"></i></a>
+                </div>
+                <!-- <div class="chat-list-content " id="msg">会话</div> -->
+                <div class="chat-list-content" id="friend">             
+                    <!-- <a href="JavaScript:;">
+                    <img src="img/bb.jpg" width="40px" height="40px">
+                    <i id="redP-1231a">1</i>
+                    <span>111</span>
+                    </a> -->
+                </div>
+                <div class="chatList-mGroup chat-list-content hide" id="group">
+                    
+                </div>
+            </div>
+            <!-- 聊天盒子 -->
+            <div class="chat-box hide">
+                    <div class="chat-box-hd">
+                        <span>宝宝</span>
+                        <a href="JavaScript:;">
+                            <ul class="list-group hide" id="123">
+                             
+                            </ul>
+                        </a>
+                    </div>
+                    <div id="chat-box-content">
+                       <!--  <div id="ChatRosters-456" class="chat-box-content">
+                        <div class="myMsg">
+                        <img src="./demo/img/tx.jpg" width="40px" height="40px">
+                        <span>11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111123</span>
+                        </div>
+                        </div> -->
+                    </div>
+                    <div class="chat-box-input">
+                        <div class="tool-bar">
+                            <a class="face " href="javascript:;">
+                                <ul class="hide">
+                                    <li key='[:D]'><img src="./demo/img/face/ee_1.png" alt="表情1"></li>
+                                    <li><img src="./demo/img/face/ee_2.png" alt="表情2"></li>
+                                    <li><img src="./demo/img/face/ee_3.png" alt="表情3"></li>
+                                    <li><img src="./demo/img/face/ee_4.png" alt="表情4"></li>
+                                    <li><img src="./demo/img/face/ee_5.png" alt="表情5"></li>
+                                    <li><img src="./demo/img/face/ee_6.png" alt="表情6"></li>
+                                    <li><img src="./demo/img/face/ee_7.png" alt="表情7"></li>
+                                    <li><img src="./demo/img/face/ee_8.png" alt="表情8"></li>
+                                    <li><img src="./demo/img/face/ee_9.png" alt="表情9"></li>
+                                    <li><img src="./demo/img/face/ee_10.png" alt="表情10"></li>
+                                    <li><img src="./demo/img/face/ee_11.png" alt="表情11"></li>
+                                    <li><img src="./demo/img/face/ee_12.png" alt="表情12"></li>
+                                    <li><img src="./demo/img/face/ee_13.png" alt="表情13"></li>
+                                    <li><img src="./demo/img/face/ee_14.png" alt="表情14"></li>
+                                    <li><img src="./demo/img/face/ee_15.png" alt="表情15"></li>
+                                    <li><img src="./demo/img/face/ee_16.png" alt="表情16"></li>
+                                    <li><img src="./demo/img/face/ee_17.png" alt="表情17"></li>
+                                    <li><img src="./demo/img/face/ee_18.png" alt="表情18"></li>
+                                    <li><img src="./demo/img/face/ee_19.png" alt="表情19"></li>
+                                    <li><img src="./demo/img/face/ee_20.png" alt="表情20"></li>
+                                    <li><img src="./demo/img/face/ee_21.png" alt="表情21"></li>
+                                    <li><img src="./demo/img/face/ee_22.png" alt="表情22"></li>
+                                    <li><img src="./demo/img/face/ee_23.png" alt="表情23"></li>
+                                    <li><img src="./demo/img/face/ee_24.png" alt="表情24"></li>
+                                    <li><img src="./demo/img/face/ee_25.png" alt="表情25"></li>
+                                    <li><img src="./demo/img/face/ee_26.png" alt="表情26"></li>
+                                    <li><img src="./demo/img/face/ee_27.png" alt="表情27"></li>
+                                    <li><img src="./demo/img/face/ee_28.png" alt="表情28"></li>
+                                    <li><img src="./demo/img/face/ee_29.png" alt="表情29"></li>
+                                    <li><img src="./demo/img/face/ee_30.png" alt="表情30"></li>
+                                    <li><img src="./demo/img/face/ee_31.png" alt="表情31"></li>
+                                    <li><img src="./demo/img/face/ee_32.png" alt="表情32"></li>
+                                    <li><img src="./demo/img/face/ee_33.png" alt="表情33"></li>
+                                    <li><img src="./demo/img/face/ee_34.png" alt="表情34"></li>
+                                    <li><img src="./demo/img/face/ee_35.png" alt="表情35"></li>
+                                </ul>
+                            </a>
+                            <a class="file" href="javascript:;">
+                                <input type="file" accept="image/png,image/gif,image/jpeg" id="file">
+                            </a>
+                        </div>
+                        <div class="text" id="text" contentEditable="true"></div>
+                        <div class="action">
+                            <span>按下Ctrl+Enter发送消息</span>
+                            <a id="send" href="javascript:;">发送</a>
+                        </div>
+                    </div>
+            </div>          
+            <div class="chat-cover ">糖葫出品</div>
+        </div>
+    </div>
+    <!-- 添加好友弹窗 -->
+    <div class="modal fade" id="addFrendModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">添加好友</h4>
+          </div>
+          <div class="modal-body">
+            <input type="text" placeholder="请输入好友名" id="addFriendName">
+            <br>
+            <input type="text" placeholder="请好友验证消息" id="addFriendMsg">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" id="addFriend">确定添加</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 消息提醒弹窗 -->
+    <div class="modal fade" id="remindModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">提醒</h4>
+          </div>
+          <div class="modal-body" id="remindMsg">
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" id="addFriend">确定</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 消息选择弹窗 -->
+    <div class="modal fade" id="selectdModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">提醒</h4>
+          </div>
+          <div class="modal-body" id="selectMsg">
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" id="selectAgree">同意</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" id="selectDisagree">拒绝</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 添加群组弹窗 -->
+    <div class="modal fade" id="addGroupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">添加群组</h4>
+          </div>
+          <div class="modal-body" id="remindMsg">
+            <input type="text" placeholder="请输入群组ID" id="addGroupId">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" id="addGroup">确定</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 创建群组弹窗 -->
+    <div class="modal fade" id="createGroupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">创建群组</h4>
+          </div>
+          <div class="modal-body" id="remindMsg">
+            <input type="text" placeholder="请输入群组名称" id="createGroupName">
+            <br>
+            <input type="text" placeholder="请输入群组简介" id="createGroupInfo">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" id="createGroup">确定</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- jQuery -->
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Bootstrap.js -->
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+</html>
