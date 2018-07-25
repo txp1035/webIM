@@ -18,8 +18,8 @@ window.onload = function() {
 	$("#register").click(registerClick);
 	$("#logout").click(logoutClick);
 	$("#getRoasters").click(getRoasters);
-	$("#loginPage-registerPage").click(function(){divHide(this);});
-	$("#registerPage-loginPage").click(function(){divHide(this);});
+	$("#tologin").click(function(){divHide(this);});
+	$("#toregister").click(function(){divHide(this);});
 	$("#group_msg-friend").click(function(){
         $("#friend_msg-group").css("background-position","-220px -96px")
         // $("#friend_group-msg").css("background-position","-150px -96px")

@@ -19,3 +19,30 @@
 7. 小红点（接受到未读消息，会在头像上显示小红点）
 ### 觉得不错给颗星哦
 ### 欢迎提修改意见
+# 重构jQuery项目
+### 第一天
+1、重构js架构，通过定义一个tWebIM全局对象，把属性和方法定义在tWebIM里面从而避免污染Window对象。
+2、调整登录框和注册框为页面居中（使用绝对定位把盒子左上设置为50%，margin左上为负盒子宽度的一半和负盒子高度的一半）。  
+3、重构divHide方法,前者需要对按钮id进行配置，后者直接传参即可。
+```
+//修改前：
+function(e) {
+	var name = $(e).attr('id');
+	var x = name.split("-");
+	var y = x[0].split("_");
+	var a = x[1];
+	for(var i = 0; i < y.length; i++) {
+		$("#" + y[i]).addClass("hide");
+	}
+	// $("#"+x[0]).addClass("hide");
+	$("#" + a).removeClass("hide");
+};// div的隐藏与显示，用-分割显示与隐藏的集合id，用_表示分割集合中的id，例如：id1_id2_id3-id4表示隐藏id1、id2、id3显示id4
+//修改后：
+function () {
+    for (let i = 1, len = arguments.length; i < len; i++) {
+        $(arguments[i]).addClass("hide");
+    }
+    $(arguments[0]).removeClass("hide");
+}//传入参数为元素id或类例如#id或者.class,第一个参数所对应的元素会显示出来，其他参数所对应的元素会被影藏
+```
+

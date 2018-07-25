@@ -15,13 +15,7 @@
       <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <!-- 配置信息 -->
-    <script src="./sdk/webim.config.js"></script>
-    <script src="./sdk/strophe-1.2.8.min.js"></script>
-    <!-- webSdk -->
-    <script src="./sdk/websdk-1.4.12.js"></script>
-    <!-- demo -->
-    <script src="demo/js/demo.js"></script>
+    
     <link rel="stylesheet" href="demo/css/demo.css">
 </head>
 <body>
@@ -34,7 +28,7 @@
         <button id="register">注册</button>
         <p>
             <span>已有账号,</span>
-            <i id="registerPage-loginPage">登录</i>
+            <i id="toLogin">登录</i>
         </p>
     </div>
     <!-- 登录页面 -->
@@ -45,7 +39,7 @@
         <button id="login">登录</button>
         <p>
             <span>没有账号,</span>
-            <i id="loginPage-registerPage">现在注册</i>
+            <i id="toregister">现在注册</i>
         </p>
     </div>
     <!-- 主界面 -->
@@ -251,6 +245,14 @@
         </div>
       </div>
     </div>
+    <!-- 配置信息 -->
+    <script src="./sdk/webim.config.js"></script>
+    <script src="./sdk/strophe-1.2.8.min.js"></script>
+    <!-- webSdk -->
+    <script src="./sdk/websdk-1.4.12.js"></script>
+    <!-- myJs -->
+    <!-- <script src="demo/js/demo.js"></script> -->
+    <script src="demo/js/main.js"></script>
     <!-- jQuery -->
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <!-- Bootstrap.js -->
