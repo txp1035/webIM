@@ -3,15 +3,21 @@ var tWebIM = {
     /**
      * 属性
      */
+    property: {
+        nikeName: ".nikename",
+        friends: [],
+        group: []
+    },
     /**
-     * easemob对象
-     * 环信接口集成
+     * @desc 环信接口集成
+     * @namespace easemob
      */
     easemob: {
         coon: null,
         /**
-         * @param  {string} username
-         * @param  {string} password
+         * @desc 登录接口
+         * @param  {string} username 用户名
+         * @param  {string} password 密码
          */
         login: function (username, password) {
             var options = {
@@ -21,11 +27,117 @@ var tWebIM = {
                 appKey: WebIM.config.appkey
             };
             this.conn.open(options);
+        },
+        /**
+         * @desc 注册接口
+         * @param  {string} username 用户名
+         * @param  {string} password 密码
+         * @param  {string} nickname 昵称
+         */
+        register: function (username, password, nickname) {
+            var options = {
+                username: username,
+                password: password,
+                nickname: nickname,
+                appKey: WebIM.config.appkey,
+                success: function () {},
+                error: function () {},
+                apiUrl: WebIM.config.apiURL
+            };
+            conn.registerUser(options);
+        },
+
+        /**
+         * @desc 获取用户
+         * @callback success(roster)
+         */
+        getRoster: function () {
+            var options = {
+                success: function (roster) {
+                    //获取好友列表，并进行好友列表渲染，roster格式为：
+                    /** [
+                          {
+                            jid:'asemoemo#chatdemoui_test1@easemob.com',
+                            name:'test1',
+                            subscription: 'both'
+                          }
+                        ]
+                    */
+                    //避免遍历作用域链可以提高性能
+                    var friends = tWebIM.property.friends;
+                    for (var i = 0, l = roster.length; i < l; i++) {
+                        var ros = roster[i];
+                        //ros.subscription值为both/to为要显示的联系人，此处与APP需保持一致，才能保证两个客户端登录后的好友列表一致
+                        if (ros.subscription === 'both' || ros.subscription === 'to') {
+                            friends.push(ros);
+                        }
+                    }
+                    console.log(tWebIM.property.friends)
+                    tWebIM.dom.appendComponent(tWebIM.dom.componentUserList, tWebIM.property.friends, "#friend");
+                },
+                error: function () {
+                    Console.log("错误")
+                }
+            };
+            this.conn.getRoster(options);
+        }
+
+    },
+    /**
+     * dom对象
+     * 操作页面
+     */
+    dom: {
+        setMainMargin: function () {
+            if ($(window).height() <= 750) {
+                $(".main").attr("style", "margin-top:0px;");
+            } else if ($(window).height() > 750) {
+                $(".main").attr("style", "margin-top:100px;");
+            }
+            $(window).resize(function () {
+                if ($(window).height() <= 750) {
+                    $(".main").attr("style", "margin-top:0px;");
+                } else if ($(window).height() > 750) {
+                    $(".main").attr("style", "margin-top:100px;");
+                }
+            });
+        },
+        /**
+         * @desc 模拟用户列表组件 
+         * @param  {Object} data
+         * @param  {Object} obj
+         */
+        componentUserList: function (data, obj) {
+            var aelem = $('<a>').attr({
+                "href": "JavaScript:;",
+                'id': data.id,
+                // 'type': type,
+                // 'hidename': hidename,
+                // 'displayname': displayname
+            }).click(function () {
+                chooseListDivClick(this);
+            });
+            $('<img>').attr("src", "./demo/img/bb.jpg").attr("width", "40px").attr("height", "40px").appendTo(aelem);
+            $('<span>').html(data.name).appendTo(aelem);
+            $(obj).append(aelem);
+        },
+        /**
+         * @desc 实例化组件 
+         * @param  {Function} component
+         * @param  {Array} data
+         * @param  {String} obj
+         */
+        appendComponent: function (component, data, obj) {
+            var fragment = document.createDocumentFragment();
+            for (let i = 0, len = data.length; i < len; i++) {
+                component(data[i], fragment);
+            }
+            $(obj).append(fragment);
         }
     },
     /**
-     * encapsulation对象
-     * 封装方法
+     * @desc 封装方法
+     * @namespace encapsulation
      */
     encapsulation: {
         /**
@@ -53,7 +165,7 @@ window.onload = function () {
         var password = $("#pwd").val();
         tWebIM.easemob.login(username, password);
     });
-
+    tWebIM.dom.setMainMargin();
 
 }
 tWebIM.easemob.conn = new WebIM.connection({
@@ -64,7 +176,7 @@ tWebIM.easemob.conn = new WebIM.connection({
     autoReconnectNumMax: WebIM.config.autoReconnectNumMax,
     autoReconnectInterval: WebIM.config.autoReconnectInterval,
     apiUrl: WebIM.config.apiURL,
-    isAutoLogin: true
+    isAutoLogin: WebIM.config.isAutoLogin,
 }); //连接环信
 tWebIM.easemob.conn.listen({
     onOpened: function (message) { //连接成功回调
@@ -72,12 +184,12 @@ tWebIM.easemob.conn.listen({
         // 手动上线指的是调用conn.setPresence(); 如果conn初始化时已将isAutoLogin设置为true
         // 则无需调用conn.setPresence(); 
         console.log("连接成功")
-        console.log(message)
-        
         //从连接中获取到当前的登录人注册帐号名
-        // curUserId = message.context.userId;
-        // $(nikeName).text(curUserId);
+        $(tWebIM.property.nikeName).text(tWebIM.easemob.conn.context.userId);
+        //显示聊天主界面
         tWebIM.encapsulation.divHide(".main", "#loginPage");
+        //显示用户列表
+        tWebIM.easemob.getRoster();
     },
     onClosed: function (message) {}, //连接关闭回调
     onTextMessage: function (message) {}, //收到文本消息
