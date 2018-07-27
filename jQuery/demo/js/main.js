@@ -104,8 +104,8 @@ var tWebIM = {
         },
         /**
          * @desc 模拟用户列表组件 
-         * @param  {Object} data
-         * @param  {Object} obj
+         * @param  {Object} data 单个数据
+         * @param  {Object} obj 虚拟的节点对象
          */
         componentUserList: function (data, obj) {
             var aelem = $('<a>').attr({
@@ -123,9 +123,9 @@ var tWebIM = {
         },
         /**
          * @desc 实例化组件 
-         * @param  {Function} component
-         * @param  {Array} data
-         * @param  {String} obj
+         * @param  {Function} component 组件
+         * @param  {Array} data 数据集合
+         * @param  {String} obj 渲染到元素id或类
          */
         appendComponent: function (component, data, obj) {
             var fragment = document.createDocumentFragment();

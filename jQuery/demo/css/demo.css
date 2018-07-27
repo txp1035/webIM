@@ -215,13 +215,13 @@ body {
 	background-position: -185px -96px;
 } */
 
-#group_msg-friend {
+#toFriend {
 	background: url(../img/icon.png) no-repeat;
 	/* background-position: -220px -96px; */
 	background-position: -185px -96px;
 }
 
-#friend_msg-group {
+#toGroup {
 	background: url(../img/icon.png) no-repeat;
 	/* background-position: -376px -322px; */
 	background-position: -220px -96px;

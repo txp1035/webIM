@@ -52,14 +52,14 @@ function () {
 4、通过组件思想来优化列表渲染方案。这有在建立群组列表就不需要建立构建群组列表方法了。
 ```
 优化前：
-var buildListRostersDiv = function(roster) {
+var buildListRostersDiv = function(data) {
     // 建立缓存，存好友，用处是下面判断是一个好友则跳出当前循环
     var cache = {};
-    for(i = 0; i < roster.length; i++) {
-        if(!(roster[i].subscription == 'both' || roster[i].subscription == 'from')) {
+    for(i = 0; i < data.length; i++) {
+        if(!(data[i].subscription == 'both' || data[i].subscription == 'from')) {
             continue;
         }
-        var userName = roster[i].name;
+        var userName = data[i].name;
         var id = "ListRosters-"+userName;
         var displayname = userName;//应该传入昵称
         var type = "chat";
@@ -90,8 +90,8 @@ var appendListDiv = function(id,hidename,displayname,type,obj,src){
 优化后：
 /**
  * @desc 模拟用户列表组件 
- * @param  {Object} data
- * @param  {Object} obj
+ * @param  {Object} data 单个数据
+ * @param  {Object} obj 虚拟的节点对象
  */
 componentUserList: function (data, obj) {
     var aelem = $('<a>').attr({
@@ -109,9 +109,9 @@ componentUserList: function (data, obj) {
 },
 /**
  * @desc 实例化组件 
- * @param  {Function} component
- * @param  {Array} data
- * @param  {String} obj
+ * @param  {Function} component 组件
+ * @param  {Array} data 数据集合
+ * @param  {String} obj 渲染到元素id或类
  */
 appendComponent: function (component, data, obj) {
     var fragment = document.createDocumentFragment();
@@ -121,4 +121,5 @@ appendComponent: function (component, data, obj) {
     $(obj).append(fragment);
 }
 ```
+# 第三天 
 
