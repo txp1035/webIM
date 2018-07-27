@@ -24,14 +24,14 @@ window.onload = function () {
     $("#toLogin").click(function () {
         divHide("#loginPage", "#registerPage");
     });
-    $("#toFriend").click(function () {
+    $("#showFriend").click(function () {
         $("#toGroup").css("background-position", "-220px -96px")
-        $("#toFriend").css("background-position", "-185px -96px")
+        $("#showFriend").css("background-position", "-185px -96px")
         divHide("#friend", "#group");
     });
     $("#toGroup").click(function () {
         $("#toGroup").css("background-position", "-304px -246px")
-        $("#toFriend").css("background-position", "-150px -96px")
+        $("#showFriend").css("background-position", "-150px -96px")
         divHide("#group", "#friend");
     });
     $("#send").click(sendClick);

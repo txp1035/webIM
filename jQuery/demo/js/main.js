@@ -5,8 +5,7 @@ var tWebIM = {
      */
     property: {
         nikeName: ".nikename",
-        friends: [],
-        group: []
+
     },
     /**
      * @desc 环信接口集成
@@ -14,6 +13,9 @@ var tWebIM = {
      */
     easemob: {
         coon: null,
+        friends: [],
+        group: [],
+        message: [],
         /**
          * @desc 登录接口
          * @param  {string} username 用户名
@@ -64,7 +66,7 @@ var tWebIM = {
                         ]
                     */
                     //避免遍历作用域链可以提高性能
-                    var friends = tWebIM.property.friends;
+                    var friends = tWebIM.easemob.friends;
                     for (var i = 0, l = roster.length; i < l; i++) {
                         var ros = roster[i];
                         //ros.subscription值为both/to为要显示的联系人，此处与APP需保持一致，才能保证两个客户端登录后的好友列表一致
@@ -72,8 +74,8 @@ var tWebIM = {
                             friends.push(ros);
                         }
                     }
-                    console.log(tWebIM.property.friends)
-                    tWebIM.dom.appendComponent(tWebIM.dom.componentUserList, tWebIM.property.friends, "#friend");
+                    console.log(tWebIM.easemob.friends)
+                    tWebIM.dom.appendComponent(tWebIM.dom.componentChatList, tWebIM.easemob.friends, "#friend");
                 },
                 error: function () {
                     Console.log("错误")
@@ -107,8 +109,8 @@ var tWebIM = {
          * @param  {Object} data 单个数据
          * @param  {Object} obj 虚拟的节点对象
          */
-        componentUserList: function (data, obj) {
-            var aelem = $('<a>').attr({
+        componentChatList: function (data, obj) {
+            var element = $('<a>').attr({
                 "href": "JavaScript:;",
                 'id': data.id,
                 // 'type': type,
@@ -117,17 +119,38 @@ var tWebIM = {
             }).click(function () {
                 chooseListDivClick(this);
             });
-            $('<img>').attr("src", "./demo/img/bb.jpg").attr("width", "40px").attr("height", "40px").appendTo(aelem);
-            $('<span>').html(data.name).appendTo(aelem);
-            $(obj).append(aelem);
+            $('<img>').attr("src", "./demo/img/bb.jpg").attr("width", "40px").attr("height", "40px").appendTo(element);
+            $('<span>').html(data.name).appendTo(element);
+            $(obj).append(element);
+        },
+        componentAddressBookHeadList: function (data, obj) {
+            var element = $('<div>').attr({
+                'id': data.id,
+            })
+            $('<span>').html(data.name).appendTo(element);
+            $(obj).append(element);
+        },
+        componentAddressBookBodyList: function (data, obj) {
+            var element = $('<a>').attr({
+                "href": "JavaScript:;",
+                'id': data.id,
+            }).click(function () {
+                chooseListDivClick(this);
+            });
+            $('<img>').attr("src", "./demo/img/bb.jpg").attr("width", "40px").attr("height", "40px").appendTo(element);
+            $('<span>').html(data.name).appendTo(element);
+            $(obj).append(element);
         },
         /**
-         * @desc 实例化组件 
+         * @desc 实例化组件
          * @param  {Function} component 组件
          * @param  {Array} data 数据集合
          * @param  {String} obj 渲染到元素id或类
          */
         appendComponent: function (component, data, obj) {
+            if (data.length === 0) {
+                return;
+            }//没有数据停止实例化组件
             var fragment = document.createDocumentFragment();
             for (let i = 0, len = data.length; i < len; i++) {
                 component(data[i], fragment);
@@ -151,6 +174,12 @@ var tWebIM = {
             }
             $(arguments[0]).removeClass("hide");
         },
+    },
+    /**
+     * @desc 普通方法
+     */
+    common: {
+
     }
 };
 window.onload = function () {
@@ -164,6 +193,14 @@ window.onload = function () {
         var username = $("#user").val();
         var password = $("#pwd").val();
         tWebIM.easemob.login(username, password);
+    });
+    $("#showFriend").click(function () {
+        $("#showGroup").css("background-position", "-220px -96px")
+        $("#showFriend").css("background-position", "-185px -96px")
+    });
+    $("#showGroup").click(function () {
+        $("#showGroup").css("background-position", "-304px -246px")
+        $("#showFriend").css("background-position", "-150px -96px")
     });
     tWebIM.dom.setMainMargin();
 

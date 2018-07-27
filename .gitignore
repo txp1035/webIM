@@ -1,1 +1,7 @@
-# jQuery/sdk/webim.config.js
+node_modules
+.idea
+.vscode
+yarn.lock
+package-lock.json
+dist
+.cache-loader
