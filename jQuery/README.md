@@ -135,3 +135,5 @@ appendComponent: function (component, data, obj) {
 6. 将字母渲染到列表里。
 7. 再遍历用户，将用户放到对应字母后面。
 8. 插入群组。
+### 第五天
+1、增加用户信息界面。
