@@ -13,7 +13,7 @@ const config = {
         rules: [
             {
                 test: /\.(js|jsx)$/,
-                use: ['cache-loader','babel-loader?cacheDirectory=true'],
+                use: ['cache-loader', 'babel-loader?cacheDirectory=true'],
                 include: path.resolve(__dirname, './src')
             },//缓存和解析
             {
