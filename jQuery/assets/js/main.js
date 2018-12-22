@@ -5,8 +5,7 @@ var tWebIM = {
      */
     property: {
         nikeName: ".nikename",
-        friends: [],
-        group: []
+
     },
     /**
      * @desc 环信接口集成
@@ -14,6 +13,9 @@ var tWebIM = {
      */
     easemob: {
         coon: null,
+        friends: [],
+        groups: [],
+        message: [],
         /**
          * @desc 登录接口
          * @param  {string} username 用户名
@@ -46,7 +48,6 @@ var tWebIM = {
             };
             conn.registerUser(options);
         },
-
         /**
          * @desc 获取用户
          * @callback success(roster)
@@ -64,7 +65,7 @@ var tWebIM = {
                         ]
                     */
                     //避免遍历作用域链可以提高性能
-                    var friends = tWebIM.property.friends;
+                    var friends = tWebIM.easemob.friends;
                     for (var i = 0, l = roster.length; i < l; i++) {
                         var ros = roster[i];
                         //ros.subscription值为both/to为要显示的联系人，此处与APP需保持一致，才能保证两个客户端登录后的好友列表一致
@@ -72,8 +73,8 @@ var tWebIM = {
                             friends.push(ros);
                         }
                     }
-                    console.log(tWebIM.property.friends)
-                    tWebIM.dom.appendComponent(tWebIM.dom.componentUserList, tWebIM.property.friends, "#friend");
+                    console.log(tWebIM.easemob.friends)
+                    // tWebIM.dom.appendComponent(tWebIM.dom.componentChatList, tWebIM.easemob.friends, "#friend");
                 },
                 error: function () {
                     Console.log("错误")
@@ -107,8 +108,8 @@ var tWebIM = {
          * @param  {Object} data 单个数据
          * @param  {Object} obj 虚拟的节点对象
          */
-        componentUserList: function (data, obj) {
-            var aelem = $('<a>').attr({
+        componentChatList: function (data, obj) {
+            var element = $('<a>').attr({
                 "href": "JavaScript:;",
                 'id': data.id,
                 // 'type': type,
@@ -117,17 +118,41 @@ var tWebIM = {
             }).click(function () {
                 chooseListDivClick(this);
             });
-            $('<img>').attr("src", "./demo/img/bb.jpg").attr("width", "40px").attr("height", "40px").appendTo(aelem);
-            $('<span>').html(data.name).appendTo(aelem);
-            $(obj).append(aelem);
+            $('<img>').attr("src", "./demo/img/bb.jpg").attr("width", "40px").attr("height", "40px").appendTo(element);
+            $('<span>').html(data.name).appendTo(element);
+            $(obj).append(element);
         },
         /**
-         * @desc 实例化组件 
+         * @param  {String} data 字母的值
+         * @param  {Object} obj 
+         */
+        componentAddressBookHeadList: function (data, obj) {
+            var element = $('<i>').attr({
+                'id': data,
+            }).text(data);
+            $(obj).append(element);
+        },
+        componentAddressBookBodyList: function (data, obj) {
+            var element = $('<a>').attr({
+                "href": "JavaScript:;",
+                'id': data.id,
+            }).click(function () {
+                chooseListDivClick(this);
+            });
+            $('<img>').attr("src", "./demo/img/bb.jpg").attr("width", "40px").attr("height", "40px").appendTo(element);
+            $('<span>').html(data.name).appendTo(element);
+            $(obj).append(element);
+        },
+        /**
+         * @desc 实例化组件
          * @param  {Function} component 组件
          * @param  {Array} data 数据集合
          * @param  {String} obj 渲染到元素id或类
          */
         appendComponent: function (component, data, obj) {
+            if (data.length === 0) {
+                return;
+            } //没有数据停止实例化组件
             var fragment = document.createDocumentFragment();
             for (let i = 0, len = data.length; i < len; i++) {
                 component(data[i], fragment);
@@ -151,6 +176,130 @@ var tWebIM = {
             }
             $(arguments[0]).removeClass("hide");
         },
+    },
+    /**
+     * @desc 普通方法
+     */
+    common: {
+        renderingAddressBook: function () {
+            //渲染通讯录列表用户
+            tWebIM.dom.appendComponent(tWebIM.dom.componentAddressBookBodyList, tWebIM.easemob.friends, "#addressBook");
+            var SortList = $("#addressBook a");
+            var SortBox = $("#addressBook");
+            //按首字母排序
+            SortList.sort(asc_sort).appendTo(SortBox);
+
+            function asc_sort(a, b) {
+                return makePy($(b).find('span').text().charAt(0))[0].toUpperCase() < makePy($(a).find('span').text().charAt(0))[0].toUpperCase() ? 1 : -1;
+            }
+            //获取通讯录用户首字母
+            var initials = [];
+            var num = 0;
+            SortList.each(function (i) {
+                var initial = makePy($(this).find('span').text().charAt(0))[0].toUpperCase();
+                if (initial >= 'A' && initial <= 'Z') {
+                    if (initials.indexOf(initial) === -1)
+                        initials.push(initial);
+                } else {
+                    num++;
+                }
+            });
+            if (tWebIM.easemob.groups.length > 0) {
+                initials.push("群组");
+            }
+            //渲染通讯录列表头部
+            tWebIM.dom.appendComponent(tWebIM.dom.componentAddressBookHeadList, initials, "#addressBook")
+            //遍历用户，将用户放在列表头下面
+            for (var i = 0; i < SortList.length; i++) {
+                var letter = makePy(SortList.eq(i).find('span').text().charAt(0))[0].toUpperCase();
+                switch (letter) {
+                    case "A":
+                        $('#A').after(SortList.eq(i));
+                        break;
+                    case "B":
+                        $('#B').after(SortList.eq(i));
+                        break;
+                    case "C":
+                        $('#C').after(SortList.eq(i));
+                        break;
+                    case "D":
+                        $('#D').after(SortList.eq(i));
+                        break;
+                    case "E":
+                        $('#E').after(SortList.eq(i));
+                        break;
+                    case "F":
+                        $('#F').after(SortList.eq(i));
+                        break;
+                    case "G":
+                        $('#G').after(SortList.eq(i));
+                        break;
+                    case "H":
+                        $('#H').after(SortList.eq(i));
+                        break;
+                    case "I":
+                        $('#I').after(SortList.eq(i));
+                        break;
+                    case "J":
+                        $('#J').after(SortList.eq(i));
+                        break;
+                    case "K":
+                        $('#K').after(SortList.eq(i));
+                        break;
+                    case "L":
+                        $('#L').after(SortList.eq(i));
+                        break;
+                    case "M":
+                        $('#M').after(SortList.eq(i));
+                        break;
+                    case "N":
+                        $('#N').after(SortList.eq(i));
+                        break;
+                    case "O":
+                        $('#O').after(SortList.eq(i));
+                        break;
+                    case "P":
+                        $('#P').after(SortList.eq(i));
+                        break;
+                    case "Q":
+                        $('#Q').after(SortList.eq(i));
+                        break;
+                    case "R":
+                        $('#R').after(SortList.eq(i));
+                        break;
+                    case "S":
+                        $('#S').after(SortList.eq(i));
+                        break;
+                    case "T":
+                        $('#T').after(SortList.eq(i));
+                        break;
+                    case "U":
+                        $('#U').after(SortList.eq(i));
+                        break;
+                    case "V":
+                        $('#V').after(SortList.eq(i));
+                        break;
+                    case "W":
+                        $('#W').after(SortList.eq(i));
+                        break;
+                    case "X":
+                        $('#X').after(SortList.eq(i));
+                        break;
+                    case "Y":
+                        $('#Y').after(SortList.eq(i));
+                        break;
+                    case "Z":
+                        $('#Z').after(SortList.eq(i));
+                        break;
+                    default:
+                        $('#default').after(SortList.eq(i));
+                        break;
+                }
+            };
+            if (tWebIM.easemob.groups.length > 0) {
+                tWebIM.dom.appendComponent(tWebIM.dom.componentAddressBookBodyList, tWebIM.easemob.groups, "#addressBook")
+            }
+        }
     }
 };
 window.onload = function () {
@@ -165,9 +314,21 @@ window.onload = function () {
         var password = $("#pwd").val();
         tWebIM.easemob.login(username, password);
     });
+    $("#showChat").click(function () {
+        $("#showAddressBook").css("background-position", "-220px -96px")
+        $("#showChat").css("background-position", "-185px -96px")
+        tWebIM.encapsulation.divHide("#chat", "#addressBook");
+    });
+    $("#showAddressBook").click(function () {
+        $("#showAddressBook").css("background-position", "-304px -246px")
+        $("#showChat").css("background-position", "-150px -96px")
+        tWebIM.encapsulation.divHide("#addressBook", "#chat");
+    });
     tWebIM.dom.setMainMargin();
-
+    tWebIM.common.renderingAddressBook();
+    //测试代码
 }
+
 tWebIM.easemob.conn = new WebIM.connection({
     isMultiLoginSessions: WebIM.config.isMultiLoginSessions,
     https: typeof WebIM.config.https === 'boolean' ? WebIM.config.https : location.protocol === 'https:',
@@ -232,3 +393,9 @@ tWebIM.easemob.conn.listen({
     onCreateGroup: function (message) {}, //创建群组成功回执（需调用createGroupNew）
     onMutedMessage: function (message) {} //如果用户在A群组被禁言，在A群发消息会走这个回调并且消息不会传递给群其它成员
 }); //回调函数
+//模拟数据
+function data1(data) {
+    tWebIM.easemob.friends = data.friends;
+    tWebIM.easemob.groups = data.groups;
+    console.log(window)
+}
