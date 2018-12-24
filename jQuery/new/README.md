@@ -42,15 +42,15 @@
 ```js
 //修改前：
 function(e) {
-	var name = $(e).attr('id');
-	var x = name.split("-");
-	var y = x[0].split("_");
-	var a = x[1];
-	for(var i = 0; i < y.length; i++) {
-		$("#" + y[i]).addClass("hide");
-	}
-	// $("#"+x[0]).addClass("hide");
-	$("#" + a).removeClass("hide");
+    var name = $(e).attr('id');
+    var x = name.split("-");
+    var y = x[0].split("_");
+    var a = x[1];
+    for(var i = 0; i < y.length; i++) {
+        $("#" + y[i]).addClass("hide");
+    }
+    // $("#"+x[0]).addClass("hide");
+    $("#" + a).removeClass("hide");
 };// div的隐藏与显示，用-分割显示与隐藏的集合id，用_表示分割集合中的id，例如：id1_id2_id3-id4表示隐藏id1、id2、id3显示id4
 //修改后：
 function () {
