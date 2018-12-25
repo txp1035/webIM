@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import MyMsg from './MyMsg.jsx';
-import OtherMsg from './OtherMsg.jsx';
-import ToolBar from './ToolBar.jsx';
+import MyMsg from './MyMsg.js';
+import OtherMsg from './OtherMsg.js';
+import ToolBar from './ToolBar.js';
 
 class CharBox extends Component {
   render() {

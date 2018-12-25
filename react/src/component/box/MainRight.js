@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CharBox from './CharBox.js';
-import UserInfoBox from './UserInfoBox.jsx';
+import UserInfoBox from './UserInfoBox.js';
 import CopyRight from './CopyRight.js';
 
 class MainRight extends Component {

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import userImg from '../img/bg.jpg';
-import NavBtn from './list/NavBtn.jsx';
-import ChatListPro from './list/ChatListPro.jsx';
-import UserListProH from './list/UserListProH.jsx';
-import UserListProC from './list/UserListProC.jsx';
-import MainRight from './box/MainRight.jsx';
+import NavBtn from './list/NavBtn.js';
+import ChatListPro from './list/ChatListPro.js';
+import UserListProH from './list/UserListProH.js';
+import UserListProC from './list/UserListProC.js';
+import MainRight from './box/MainRight.js';
 
 class Main extends Component {
   constructor(props) {
