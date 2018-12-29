@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { HashRouter, Route } from 'react-router-dom';
-import Login from './component/Login.js';
+import Login from './views/Login';
 import Register from './component/Register.js';
 import Main from './component/Main.js';
 

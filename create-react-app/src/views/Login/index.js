@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styles from './index.less';
 
 class Login extends Component {
   login() {
@@ -6,7 +7,7 @@ class Login extends Component {
   }
   render() {
     return (
-      <div className="login">
+      <div className={styles.login}>
         <form>
           <h2>登录</h2>
           <input type="text" placeholder="用户名" />
