@@ -1,0 +1,90 @@
+.cb_content {
+  position: absolute;
+  top: 51px;
+  left: 0;
+  right: 0;
+  bottom: 180px;
+  padding: 10px 19px 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: left;
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #c3c3c3;
+    border-radius: 4px;
+  }
+} //聊天窗口界面
+.cb_bottom {
+  display: flex;
+  flex-direction: column;
+  height: 179px;
+  margin-right: 19px;
+  border-top: 1px solid #d6d6d6;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  span {
+    display: flex;
+    height: 30px;
+    padding: 5px 17px;
+    i {
+      font-size: 28px;
+      margin-right: 10px;
+      cursor: pointer;
+      position: relative;
+      ul {
+        position: absolute;
+        left: 0px;
+        bottom: 30px;
+        width: 248px;
+        height: 180px;
+        background: #fff;
+        padding: 2px 5px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 2;
+        li {
+          background: red;
+          width: 32px;
+          height: 32px;
+        }
+      }
+    }
+  }
+  .input {
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: #c3c3c3;
+      border-radius: 4px;
+    }
+    box-sizing: content-box;
+    height: 6em;
+    overflow-x: hidden;
+    overflow-y: auto;
+    outline: none;
+    margin-left: 20px;
+  }
+  .submit {
+    display: flex;
+    flex-direction: row-reverse;
+    height: 28px;
+    padding-top: 5px;
+    a {
+      padding: 3px 30px;
+      color: #222;
+      border: 1px solid #c1c1c1;
+      background: #fff;
+      text-decoration: none;
+      &:hover {
+        background: #f8f8f8;
+      }
+    }
+  }
+} //聊天窗口底部

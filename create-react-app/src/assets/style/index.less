@@ -23,14 +23,13 @@ select {
 button {
   cursor: pointer;
 }
+
 body {
   font-size: 14px;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   background-image: url('@/assets/img/bg.jpg');
   background-size: 100vw 100vh;
-}
-#app {
-  .Router {
+  > div {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -38,6 +37,7 @@ body {
     width: 100vw;
   }
 }
+
 .login {
   display: flex;
   justify-content: center;

@@ -1,0 +1,98 @@
+.main {
+  display: flex;
+  width: 1000px;
+  min-width: 800px;
+  height: 80%;
+  min-height: 600px;
+  .user_list {
+    background: #2e3238;
+    position: relative;
+    width: 280px;
+    color: #fff;
+    .ui_top {
+      display: flex;
+      align-items: center;
+      padding: 18px;
+      img {
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+      }
+      span {
+        font-size: 18px;
+        width: 156px;
+      }
+      i {
+        color: #6e6e6f;
+        font-size: 20px;
+        margin-left: 8px;
+        cursor: pointer;
+        position: relative;
+        ul {
+          position: absolute;
+          right: 0;
+          top: 30px;
+          background: #fff;
+          -webkit-border-radius: 10px;
+          font-size: 14px;
+          z-index: 1;
+          li {
+            height: 50px;
+            width: 150px;
+            text-align: center;
+            line-height: 50px;
+            border-bottom: 1px solid #f1f1f1;
+            -webkit-border-radius: 10px;
+            &:hover {
+              background: #f8f8f8;
+            }
+          }
+        }
+      }
+    } //顶部个人信息
+    .ui_search {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 6px;
+      i {
+        width: 32px;
+        height: 32px;
+        background: #26292e;
+        color: #939497;
+        font-size: 18px;
+        text-align: center;
+        line-height: 32px;
+      }
+      input {
+        width: 204px;
+        height: 32px;
+        padding-right: 10px;
+        background: #26292e;
+        color: #fff;
+        font-size: 12px;
+      }
+    } //搜索栏
+    .ui_bottom {
+      .nav {
+        display: flex;
+        height: 35px;
+        border-bottom: 1px solid #24272c;
+      }
+      .list {
+        position: absolute;
+        top: 153px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        overflow-y: auto;
+        &::-webkit-scrollbar {
+          width: 8px;
+        }
+        &::-webkit-scrollbar-thumb {
+          background: #404449;
+          border-radius: 4px;
+        }
+      }
+    } //底部用户列表
+  } //用户信息盒子
+} //聊天页面

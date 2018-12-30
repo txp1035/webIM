@@ -1,11 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './style/style.less';
-import './style/iconfont/iconfont.css';
-import Router from './Router.js';
-// import Main from './component/Main.js';
-// import { HashRouter, Route, NavLink } from 'react-router-dom';
+import Router from '@/Router';
 import * as serviceWorker from './serviceWorker';
+import '@/assets/style/index.less';
+import '@/assets/icon/iconfont/iconfont.css';
 
 ReactDOM.render(<Router />, document.getElementById('root'));
 

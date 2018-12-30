@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import styles from './index.less';
 
 class Login extends Component {
-  login() {
+  login = () => {
     window.location.href = '#/Main';
-  }
+  };
   render() {
     return (
       <div className={styles.login}>
