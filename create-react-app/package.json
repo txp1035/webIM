@@ -118,5 +118,6 @@
     "presets": [
       "react-app"
     ]
-  }
+  },
+  "homepage": "https://imtxp.cn/webIM/create-react-app/static/"
 }

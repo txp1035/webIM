@@ -1,15 +1,15 @@
 {
-  "main.css": "/static/css/main.c1acfa65.chunk.css",
-  "main.js": "/static/js/main.5676e661.chunk.js",
-  "main.js.map": "/static/js/main.5676e661.chunk.js.map",
-  "static/js/1.6c7cd6d4.chunk.js": "/static/js/1.6c7cd6d4.chunk.js",
-  "static/js/1.6c7cd6d4.chunk.js.map": "/static/js/1.6c7cd6d4.chunk.js.map",
-  "runtime~main.js": "/static/js/runtime~main.229c360f.js",
-  "runtime~main.js.map": "/static/js/runtime~main.229c360f.js.map",
-  "static/media/index.less": "/static/media/bg.5a9adad6.jpg",
-  "static/media/iconfont.css": "/static/media/iconfont.c782921a.eot",
-  "static/css/main.c1acfa65.chunk.css.map": "/static/css/main.c1acfa65.chunk.css.map",
-  "index.html": "/index.html",
-  "precache-manifest.1b7351eee092c3046fa60e28db5b5964.js": "/precache-manifest.1b7351eee092c3046fa60e28db5b5964.js",
-  "service-worker.js": "/service-worker.js"
+  "main.css": "/webIM/create-react-app/static/static/css/main.0af025ff.chunk.css",
+  "main.js": "/webIM/create-react-app/static/static/js/main.14eb1611.chunk.js",
+  "main.js.map": "/webIM/create-react-app/static/static/js/main.14eb1611.chunk.js.map",
+  "static/js/1.6c7cd6d4.chunk.js": "/webIM/create-react-app/static/static/js/1.6c7cd6d4.chunk.js",
+  "static/js/1.6c7cd6d4.chunk.js.map": "/webIM/create-react-app/static/static/js/1.6c7cd6d4.chunk.js.map",
+  "runtime~main.js": "/webIM/create-react-app/static/static/js/runtime~main.d4b0262c.js",
+  "runtime~main.js.map": "/webIM/create-react-app/static/static/js/runtime~main.d4b0262c.js.map",
+  "static/media/index.less": "/webIM/create-react-app/static/static/media/bg.5a9adad6.jpg",
+  "static/media/iconfont.css": "/webIM/create-react-app/static/static/media/iconfont.8dd6d058.svg",
+  "static/css/main.0af025ff.chunk.css.map": "/webIM/create-react-app/static/static/css/main.0af025ff.chunk.css.map",
+  "index.html": "/webIM/create-react-app/static/index.html",
+  "precache-manifest.524ccc27e6cf1c246f363c4f4e74d63b.js": "/webIM/create-react-app/static/precache-manifest.524ccc27e6cf1c246f363c4f4e74d63b.js",
+  "service-worker.js": "/webIM/create-react-app/static/service-worker.js"
 }
