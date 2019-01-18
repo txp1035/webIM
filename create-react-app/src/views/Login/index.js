@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styles from './index.less';
+import LoginForm from '@/component/Form';
 
 class Login extends Component {
   login = () => {
@@ -8,6 +9,7 @@ class Login extends Component {
   render() {
     return (
       <div className={styles.login}>
+        {/* <LoginForm isBtn={false} config={[{ type: 'input', label: '', key: 'aaa' }, { type: 'input', label: '', key: 'a1aa' }]} /> */}
         <form>
           <h2>登录</h2>
           <input type="text" placeholder="用户名" />

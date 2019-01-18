@@ -12,7 +12,7 @@
 
 依赖包：
 
-> less
-> less-loader
-> react-router-dom
-> antd
+- less
+- less-loader
+- react-router-dom
+- antd

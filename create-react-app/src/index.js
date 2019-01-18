@@ -4,6 +4,7 @@ import Router from '@/Router';
 import * as serviceWorker from './serviceWorker';
 import '@/assets/style/index.less';
 import '@/assets/icon/iconfont/iconfont.css';
+import 'antd/dist/antd.css';
 
 ReactDOM.render(<Router />, document.getElementById('root'));
 
