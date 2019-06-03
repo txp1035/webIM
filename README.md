@@ -10,6 +10,8 @@ jQueryDev：jQuery 重构版，优化性能架构，增加新功能。（开发�
 
 reactDev 版：学习 react 用。（开发中）
 
+createReactApp 版：学习 create-react-app 用。（开发中）
+
 vueDev 版：学习 vue 用。（开发中）
 
 ## 测试账号和地址
