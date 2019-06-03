@@ -4,3 +4,4 @@ node_modules
 dist
 .cache-loader
 package-lock.json
+.DS_Store
