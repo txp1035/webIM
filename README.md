@@ -6,13 +6,13 @@
 
 master ：开发完成的分支，目前完成了 jQuery 版。
 
-jQueryDev ：jQuery 重构版，优化性能架构，增加新功能。（开发中）
+~~jQueryDev ：jQuery 重构版，优化性能架构，增加新功能。（开发中）~~
 
-reactDev ：学习 react 用。（开发中）
+~~reactDev ：学习 react 用。（开发中）~~
 
-createReactAppDev ：学习 create-react-app 用。（开发中）
+~~createReactAppDev ：学习 create-react-app 用。（开发中）~~
 
-vueDev ：学习 vue 用。（开发中）
+~~vueDev ：学习 vue 用。（开发中）~~
 
 ## 测试账号和地址
 
