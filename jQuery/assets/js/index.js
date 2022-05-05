@@ -1,13 +1,13 @@
 /*页面加载*/
-window.onload = function() {
+window.onload = function () {
   //绑定按钮
-  $(document).keydown(function(event) {
+  $(document).keydown(function (event) {
     if (event.keyCode == 13 && event.ctrlKey) {
       sendClick();
     }
   });
   setMainMargin(); //动态设置聊天窗口的margin
-  $('#file').change(function() {
+  $('#file').change(function () {
     if (curAcceptMsgObjType == 'chat') {
       sendPrivatePicture('file');
     } else if (curAcceptMsgObjType == 'groupchat') {
@@ -18,18 +18,18 @@ window.onload = function() {
   $('#register').click(registerClick);
   $('#logout').click(logoutClick);
   $('#getRoasters').click(getRoasters);
-  $('#toregister').click(function() {
+  $('#toregister').click(function () {
     divHide('#registerPage', '#loginPage');
   });
-  $('#toLogin').click(function() {
+  $('#toLogin').click(function () {
     divHide('#loginPage', '#registerPage');
   });
-  $('#toFriend').click(function() {
+  $('#toFriend').click(function () {
     $('#toGroup').css('background-position', '-220px -96px');
     $('#toFriend').css('background-position', '-185px -96px');
     divHide('#friend', '#group');
   });
-  $('#toGroup').click(function() {
+  $('#toGroup').click(function () {
     $('#toGroup').css('background-position', '-304px -246px');
     $('#toFriend').css('background-position', '-150px -96px');
     divHide('#group', '#friend');
@@ -40,7 +40,7 @@ window.onload = function() {
   $('#addFriend').click(addFriendsClick);
   $('#createGroup').click(createGroupsClick);
   $('.face').click(faceBoxClick);
-  $('.face li').click(function() {
+  $('.face li').click(function () {
     chooseFaceClick(this);
   });
   $('#addGroup').click(joinGroupsClick);
@@ -67,13 +67,13 @@ var conn = new WebIM.connection({
   url: WebIM.config.xmppURL,
   apiUrl: WebIM.config.apiURL,
   isAutoLogin: WebIM.config.isAutoLogin,
-  isMultiLoginSessions: WebIM.config.isMultiLoginSessions
+  isMultiLoginSessions: WebIM.config.isMultiLoginSessions,
   // heartBeatWait: WebIM.config.heartBeatWait,
   // autoReconnectNumMax: WebIM.config.autoReconnectNumMax,
   // autoReconnectInterval: WebIM.config.autoReconnectInterval
 }); // 创建连接
 conn.listen({
-  onOpened: function(message) {
+  onOpened: function (message) {
     //连接成功回调
     // 如果isAutoLogin设置为false，那么必须手动设置上线，否则无法收消息
     // 手动上线指的是调用conn.setPresence(); 如果conn初始化时已将isAutoLogin设置为true
@@ -82,12 +82,12 @@ conn.listen({
     console.log('%c 环信已成功连接', 'color: green');
     handleOpen(conn);
   },
-  onClosed: function(message) {}, //连接关闭回调
-  onTextMessage: function(message) {
+  onClosed: function (message) {}, //连接关闭回调
+  onTextMessage: function (message) {
     // 在此接收和处理消息，根据message.type区分消息来源，私聊或群组或聊天室
     handleTextMessage(message);
   }, //收到文本消息
-  onEmojiMessage: function(message) {
+  onEmojiMessage: function (message) {
     // 当为WebIM添加了Emoji属性后，若发送的消息含WebIM.Emoji里特定的字符串，connection就会自动将
     // 这些字符串和其它文字按顺序组合成一个数组，每一个数组元素的结构为{type: 'emoji(或者txt)', data:''}
     // 当type='emoji'时，data表示表情图像的路径，当type='txt'时，data表示文本消息
@@ -97,12 +97,12 @@ conn.listen({
       console.log(data[i]);
     }
   }, //收到表情消息
-  onPictureMessage: function(message) {
+  onPictureMessage: function (message) {
     console.log('图片');
     var options = {
-      url: message.url
+      url: message.url,
     };
-    options.onFileDownloadComplete = function() {
+    options.onFileDownloadComplete = function () {
       // 图片下载成功
       var msgObjDivId = null;
       var listObjIId = null;
@@ -115,29 +115,27 @@ conn.listen({
       }
       // 把接受的消息添加进消息盒子中
       var chatdiv = $('<div>').attr({
-        class: 'otherMsg'
+        class: 'otherMsg',
       });
       $('<img>')
         .attr({
-          src: './demo/img/bb.jpg',
+          src: './assets/img/bb.jpg',
           width: '40px',
           height: '40px',
-          id: 'limg'
+          id: 'limg',
         })
         .appendTo(chatdiv);
       console.log(message);
-      $('<h4>')
-        .text(message.from)
-        .appendTo(chatdiv);
+      $('<h4>').text(message.from).appendTo(chatdiv);
       var span = $('<span>').appendTo(chatdiv);
       $('<img>')
         .attr({
           src: message.url,
-          width: '300px'
+          width: '300px',
         })
         .appendTo(span);
       $('#' + msgObjDivId).append(chatdiv);
-      setTimeout(function() {
+      setTimeout(function () {
         scrollBottom('#' + msgObjDivId);
       }, 500);
 
@@ -150,7 +148,7 @@ conn.listen({
         } else {
           var redI = $('<i>')
             .attr({
-              id: 'redP-' + msgObjDivId
+              id: 'redP-' + msgObjDivId,
             })
             .text(1);
           $('#' + listObjIId).append(redI);
@@ -160,57 +158,57 @@ conn.listen({
       console.log('图片下载成功!');
       console.log(message);
     };
-    options.onFileDownloadError = function() {
+    options.onFileDownloadError = function () {
       // 图片下载失败
       console.log('图片下载失败!');
     };
     WebIM.utils.download.call(conn, options); // 意义待查
   }, //收到图片消息
-  onCmdMessage: function(message) {
+  onCmdMessage: function (message) {
     console.log('收到命令消息');
   }, //收到命令消息
-  onAudioMessage: function(message) {
+  onAudioMessage: function (message) {
     console.log('收到音频消息');
   }, //收到音频消息
-  onLocationMessage: function(message) {
+  onLocationMessage: function (message) {
     console.log('收到位置消息');
   }, //收到位置消息
-  onFileMessage: function(message) {
+  onFileMessage: function (message) {
     console.log('收到文件消息');
   }, //收到文件消息
-  onVideoMessage: function(message) {
+  onVideoMessage: function (message) {
     var node = document.getElementById('privateVideo');
     var option = {
       url: message.url,
       headers: {
-        Accept: 'audio/mp4'
+        Accept: 'audio/mp4',
       },
-      onFileDownloadComplete: function(response) {
+      onFileDownloadComplete: function (response) {
         var objectURL = WebIM.utils.parseDownloadResponse.call(conn, response);
         node.src = objectURL;
       },
-      onFileDownloadError: function() {
+      onFileDownloadError: function () {
         console.log('文件下载失败.');
-      }
+      },
     };
     WebIM.utils.download.call(conn, option);
   }, //收到视频消息
-  onPresence: function(message) {
+  onPresence: function (message) {
     handlePresence(message);
   }, //处理“广播”或“发布-订阅”消息，如联系人订阅请求、处理群组、聊天室被踢解散等消息
-  onRoster: function(message) {
+  onRoster: function (message) {
     console.log('处理好友申请');
   }, //处理好友申请
-  onInviteMessage: function(message) {
+  onInviteMessage: function (message) {
     console.log('处理群组邀请');
   }, //处理群组邀请
-  onOnline: function() {
+  onOnline: function () {
     console.log('本机网络连接成功');
   }, //本机网络连接成功
-  onOffline: function() {
+  onOffline: function () {
     console.log('本机网络掉线');
   }, //本机网络掉线
-  onError: function(message) {
+  onError: function (message) {
     console.log('失败回调');
     console.log(message);
     $(mainPage).addClass('hide');
@@ -219,16 +217,16 @@ conn.listen({
       console.warn('连接建立失败！请确认您的登录账号是否和appKey匹配。');
     }
   }, //失败回调
-  onBlacklistUpdate: function(list) {
+  onBlacklistUpdate: function (list) {
     //黑名单变动
     // 查询黑名单，将好友拉黑，将好友从黑名单移除都会回调这个函数，list则是黑名单现有的所有好友信息
     console.log(list);
   },
-  onReceivedMessage: function(message) {}, //收到消息送达客户端回执
+  onReceivedMessage: function (message) {}, //收到消息送达客户端回执
   // onDeliveredMessage: funciton(message){},   //收到消息送达服务器回执
-  onReadMessage: function(message) {}, //收到消息已读回执
-  onCreateGroup: function(message) {}, //创建群组成功回执（需调用createGroupNew）
-  onMutedMessage: function(message) {} //如果用户在A群组被禁言，在A群发消息会走这个回调并且消息不会传递给群其它成员
+  onReadMessage: function (message) {}, //收到消息已读回执
+  onCreateGroup: function (message) {}, //创建群组成功回执（需调用createGroupNew）
+  onMutedMessage: function (message) {}, //如果用户在A群组被禁言，在A群发消息会走这个回调并且消息不会传递给群其它成员
   // onBlacklistUpdate: function (list) {
   //     // 查询黑名单，将好友拉黑，将好友从黑名单移除都会回调这个函数，list则是黑名单现有的所有好友信息
   //     console.log(list);
@@ -236,7 +234,7 @@ conn.listen({
 }); // 回调函数
 
 /*回调函数实现的功能*/
-var handleOpen = function(conn) {
+var handleOpen = function (conn) {
   //从连接中获取到当前的登录人注册帐号名
   curUserId = conn.context.userId;
   $(nikeName).text(curUserId);
@@ -245,7 +243,7 @@ var handleOpen = function(conn) {
   getRoasters();
   getGroups();
 }; // 处理连接时
-var handlePresence = function(message) {
+var handlePresence = function (message) {
   console.log(message.type);
   switch (message.type) {
     case 'joinPublicGroupSuccess':
@@ -256,10 +254,10 @@ var handlePresence = function(message) {
       var options = {
         applicant: message.from,
         groupId: message.gid,
-        success: function(resp) {
+        success: function (resp) {
           console.log(resp);
         },
-        error: function(e) {}
+        error: function (e) {},
       };
       if (a) {
         conn.agreeJoinGroup(options);
@@ -275,12 +273,12 @@ var handlePresence = function(message) {
         // 同意对方添加好友
         conn.subscribed({
           to: message.from,
-          message: '[resp:true]'
+          message: '[resp:true]',
         });
       } else {
         conn.unsubscribed({
           to: message.from,
-          message: '残忍的拒绝了你的好友请求' // 拒绝添加好友回复信息
+          message: '残忍的拒绝了你的好友请求', // 拒绝添加好友回复信息
         });
       } // 拒绝对方添加好友
 
@@ -292,7 +290,7 @@ var handlePresence = function(message) {
       var hidename = message.from;
       var displayname = hidename;
       var type = 'chat';
-      var src = './demo/img/bb.jpg';
+      var src = './assets/img/bb.jpg';
       var chatId = 'ChatRosters-' + message.from;
       appendListDiv(id, hidename, displayname, type, friendList, src);
       appendChatDiv(chatId, chatBoxContent);
@@ -316,16 +314,16 @@ var handlePresence = function(message) {
     case 'createGroupACK':
       conn.createGroupAsync({
         from: message.from,
-        success: function(option) {
+        success: function (option) {
           console.log('Create Group Succeed');
-        }
+        },
       });
       break;
   }
 }; //处理“广播”或“发布-订阅”消息，如联系人订阅请求、处理群组、聊天室被踢解散等消息
-var getRoasters = function() {
+var getRoasters = function () {
   var option = {
-    success: function(roster) {
+    success: function (roster) {
       // roster是所有好友，格式为：
       /*
              [
@@ -355,25 +353,25 @@ var getRoasters = function() {
         buildListRostersDiv(bothRoster); //联系人列表页面处理
         buildChatRostersDiv(bothRoster);
       }
-    }
+    },
   };
   conn.getRoster(option);
 }; // 显示好友（需要插入昵称和头像）
-var getGroups = function() {
+var getGroups = function () {
   var option = {
-    success: function(rooms) {
+    success: function (rooms) {
       if (rooms.length > 0) {
         buildListGroupsDiv(rooms); //群组列表页面处理
         buildChatGroupsDiv(rooms);
       }
     },
-    error: function() {
+    error: function () {
       console.log('显示群组错误');
-    }
+    },
   };
   conn.listRooms(option);
 }; // 显示群组（需要插入头像）
-var buildListRostersDiv = function(roster) {
+var buildListRostersDiv = function (roster) {
   // 建立缓存，存好友，用处是下面判断是一个好友则跳出当前循环
   var cache = {};
   for (i = 0; i < roster.length; i++) {
@@ -385,7 +383,7 @@ var buildListRostersDiv = function(roster) {
     var displayname = userName; //应该传入昵称
     var type = 'chat';
     var obj = friendList;
-    var imgSrc = './demo/img/bb.jpg';
+    var imgSrc = './assets/img/bb.jpg';
     if (userName in cache) {
       continue;
     }
@@ -393,13 +391,13 @@ var buildListRostersDiv = function(roster) {
     appendListDiv(id, userName, displayname, type, obj, imgSrc);
   }
 }; // 构建好友列表
-var buildChatRostersDiv = function(roster) {
+var buildChatRostersDiv = function (roster) {
   for (i = 0; i < roster.length; i++) {
     var id = 'ChatRosters-' + roster[i].name;
     appendChatDiv(id, chatBoxContent);
   }
 }; // 构建好友聊天盒子
-var buildListGroupsDiv = function(groups) {
+var buildListGroupsDiv = function (groups) {
   var cache = {};
   for (i = 0; i < groups.length; i++) {
     var roomsName = groups[i].name;
@@ -407,7 +405,7 @@ var buildListGroupsDiv = function(groups) {
     var id = 'ListGroups-' + roomId;
     var type = 'groupchat';
     var obj = groupList;
-    var imgSrc = './demo/img/group_normal.png';
+    var imgSrc = './assets/img/group_normal.png';
     if (roomId in cache) {
       continue;
     }
@@ -415,42 +413,36 @@ var buildListGroupsDiv = function(groups) {
     appendListDiv(id, roomId, roomsName, type, obj, imgSrc);
   }
 }; // 构建群组列表
-var buildChatGroupsDiv = function(groups) {
+var buildChatGroupsDiv = function (groups) {
   for (i = 0; i < groups.length; i++) {
     var id = 'ChatGroups-' + groups[i].roomId;
     appendChatDiv(id, chatBoxContent);
   }
 }; // 构建群组聊天盒子
-var appendListDiv = function(id, hidename, displayname, type, obj, src) {
+var appendListDiv = function (id, hidename, displayname, type, obj, src) {
   var aelem = $('<a>')
     .attr({
       href: 'JavaScript:;',
       id: id,
       type: type,
       hidename: hidename,
-      displayname: displayname
+      displayname: displayname,
     })
-    .click(function() {
+    .click(function () {
       chooseListDivClick(this);
     });
-  $('<img>')
-    .attr('src', src)
-    .attr('width', '40px')
-    .attr('height', '40px')
-    .appendTo(aelem);
-  $('<span>')
-    .html(displayname)
-    .appendTo(aelem);
+  $('<img>').attr('src', src).attr('width', '40px').attr('height', '40px').appendTo(aelem);
+  $('<span>').html(displayname).appendTo(aelem);
   $(obj).append(aelem);
 }; //动态插入列表
-var appendChatDiv = function(id, obj) {
+var appendChatDiv = function (id, obj) {
   var chatdiv = $('<div>').attr({
     id: id,
-    class: 'chat-box-content hide'
+    class: 'chat-box-content hide',
   });
   $(obj).append(chatdiv);
 }; //动态插入聊天盒子
-var handleTextMessage = function(message) {
+var handleTextMessage = function (message) {
   var msgObjDivId = null;
   var listObjIId = null;
   if (message.type == 'chat') {
@@ -462,23 +454,19 @@ var handleTextMessage = function(message) {
   }
   // 把接受的消息添加进消息盒子中
   var chatdiv = $('<div>').attr({
-    class: 'otherMsg'
+    class: 'otherMsg',
   });
   $('<img>')
     .attr({
-      src: './demo/img/bb.jpg',
+      src: './assets/img/bb.jpg',
       width: '40px',
       height: '40px',
-      id: 'limg'
+      id: 'limg',
     })
     .appendTo(chatdiv);
   console.log(message);
-  $('<h4>')
-    .text(message.from)
-    .appendTo(chatdiv);
-  $('<span>')
-    .html(message.data)
-    .appendTo(chatdiv);
+  $('<h4>').text(message.from).appendTo(chatdiv);
+  $('<span>').html(message.data).appendTo(chatdiv);
   $('#' + msgObjDivId).append(chatdiv);
   scrollBottom('#' + msgObjDivId);
   // 小红点添加
@@ -490,7 +478,7 @@ var handleTextMessage = function(message) {
     } else {
       var redI = $('<i>')
         .attr({
-          id: 'redP-' + msgObjDivId
+          id: 'redP-' + msgObjDivId,
         })
         .text(1);
       $('#' + listObjIId).append(redI);
@@ -501,60 +489,60 @@ var handleTextMessage = function(message) {
 }; //处理接受文字消息
 
 /*基本API*/
-var register = function(username, password, nickname) {
+var register = function (username, password, nickname) {
   var options = {
     username: username, //填入用户名
     password: password, //填入密码
     nickname: nickname, //填入昵称
     appKey: WebIM.config.appkey,
-    success: function() {
+    success: function () {
       $('#remindMsg').text('注册成功');
       $('#remindModal').modal();
       $('#registerPage input').val('');
       $(registerPage).addClass('hide');
       $(loginPage).removeClass('hide');
     },
-    error: function(data) {
+    error: function (data) {
       if (data.type == '17') {
         $('#remindMsg').text('用户名重复请重新注册');
         $('#remindModal').modal();
       }
       $('#registerPage input').val('');
     },
-    apiUrl: WebIM.config.apiURL
+    apiUrl: WebIM.config.apiURL,
   };
   conn.registerUser(options);
 }; // 注册
-var login = function(user, pwd) {
+var login = function (user, pwd) {
   var options = {
     apiUrl: WebIM.config.apiURL,
     user: user,
     pwd: pwd,
-    appKey: WebIM.config.appkey
+    appKey: WebIM.config.appkey,
   };
   conn.open(options);
 }; // 登录
-var logout = function() {
+var logout = function () {
   conn.close();
 }; // 退出
-var sendPrivateText = function(text, obj) {
+var sendPrivateText = function (text, obj) {
   var id = conn.getUniqueId();
   var msg = new WebIM.message('txt', id);
   msg.set({
     msg: text, // 消息内容
     to: obj, // 接收消息对象
     roomType: false,
-    success: function(id, serverMsgId) {
+    success: function (id, serverMsgId) {
       console.log('发送私聊信息成功');
     },
-    fail: function(e) {
+    fail: function (e) {
       console.log('发送私聊信息失败');
-    }
+    },
   });
   msg.body.chatType = 'singleChat';
   conn.send(msg.body);
 }; // 私聊发送文本消息，发送表情同发送文本消息，只是会在对方客户端将表情文本进行解析成图片
-var sendGroupText = function(text, obj) {
+var sendGroupText = function (text, obj) {
   var id = conn.getUniqueId(); // 生成本地消息id
   var msg = new WebIM.message('txt', id); // 创建文本消息
   var option = {
@@ -562,18 +550,18 @@ var sendGroupText = function(text, obj) {
     to: obj, // 接收消息对象(群组id)
     roomType: false,
     chatType: 'chatRoom',
-    success: function() {
+    success: function () {
       console.log('发送群信息成功');
     },
-    fail: function() {
+    fail: function () {
       console.log('发送群信息失败');
-    }
+    },
   };
   msg.set(option);
   msg.setGroup('groupchat');
   conn.send(msg.body);
 }; // 群组发送文本消息
-var sendPrivatePicture = function(obj) {
+var sendPrivatePicture = function (obj) {
   var id = conn.getUniqueId();
   var msg = new WebIM.message('img', id);
   var input = document.getElementById(obj); // 选择图片的input
@@ -582,7 +570,7 @@ var sendPrivatePicture = function(obj) {
     jpg: true,
     gif: true,
     png: true,
-    bmp: true
+    bmp: true,
   };
 
   var option = {
@@ -591,19 +579,19 @@ var sendPrivatePicture = function(obj) {
     to: curAcceptMsgObj,
     roomType: false,
     chatType: 'singleChat',
-    onFileUploadError: function() {
+    onFileUploadError: function () {
       console.log('onFileUploadError');
     },
-    onFileUploadComplete: function(data) {
+    onFileUploadComplete: function (data) {
       var chatdiv = $('<div>').attr({
-        class: 'myMsg'
+        class: 'myMsg',
       });
       $('<img>')
         .attr({
-          src: './demo/img/tx.jpg',
+          src: './assets/img/tx.jpg',
           width: '40px',
           height: '40px',
-          id: 'rimg'
+          id: 'rimg',
         })
         .appendTo(chatdiv);
       var text = $('#text').text();
@@ -611,18 +599,18 @@ var sendPrivatePicture = function(obj) {
       $('<img>')
         .attr({
           src: data.uri + '/' + data.entities[0].uuid,
-          width: '300px'
+          width: '300px',
         })
         .appendTo(span);
       $('#' + curAcceptMsgObjDivId).append(chatdiv);
       console.log($('#' + curAcceptMsgObjDivId).prop('scrollHeight'));
-      setTimeout(function() {
+      setTimeout(function () {
         scrollBottom('#' + curAcceptMsgObjDivId);
       }, 500);
     },
-    success: function() {
+    success: function () {
       console.log('Success');
-    }
+    },
   };
   // for ie8
   try {
@@ -636,7 +624,7 @@ var sendPrivatePicture = function(obj) {
   msg.set(option);
   conn.send(msg.body);
 }; //私聊发送图片
-var sendGroupPicture = function(obj) {
+var sendGroupPicture = function (obj) {
   var id = conn.getUniqueId();
   var msg = new WebIM.message('img', id);
   var input = document.getElementById(obj); // 选择图片的input
@@ -645,7 +633,7 @@ var sendGroupPicture = function(obj) {
     jpg: true,
     gif: true,
     png: true,
-    bmp: true
+    bmp: true,
   };
 
   var option = {
@@ -654,19 +642,19 @@ var sendGroupPicture = function(obj) {
     to: curAcceptMsgObj,
     roomType: false,
     chatType: 'chatRoom',
-    onFileUploadError: function() {
+    onFileUploadError: function () {
       console.log('onFileUploadError');
     },
-    onFileUploadComplete: function(data) {
+    onFileUploadComplete: function (data) {
       var chatdiv = $('<div>').attr({
-        class: 'myMsg'
+        class: 'myMsg',
       });
       $('<img>')
         .attr({
-          src: './demo/img/tx.jpg',
+          src: './assets/img/tx.jpg',
           width: '40px',
           height: '40px',
-          id: 'rimg'
+          id: 'rimg',
         })
         .appendTo(chatdiv);
       var text = $('#text').text();
@@ -674,18 +662,18 @@ var sendGroupPicture = function(obj) {
       $('<img>')
         .attr({
           src: data.uri + '/' + data.entities[0].uuid,
-          width: '300px'
+          width: '300px',
         })
         .appendTo(span);
       $('#' + curAcceptMsgObjDivId).append(chatdiv);
       // 图片延时
-      setTimeout(function() {
+      setTimeout(function () {
         scrollBottom('#' + curAcceptMsgObjDivId);
       }, 500);
     },
-    success: function() {
+    success: function () {
       console.log('Success');
-    }
+    },
   };
   // for ie8
   try {
@@ -700,30 +688,30 @@ var sendGroupPicture = function(obj) {
   msg.setGroup('groupchat');
   conn.send(msg.body);
 }; //群聊发送图片
-var addFriends = function(name, msg) {
+var addFriends = function (name, msg) {
   if (name != null && name != '') {
     conn.subscribe({
       to: name,
       // Demo里面接收方没有展现出来这个message，在status字段里面
-      message: msg
+      message: msg,
     });
   }
 }; // 添加好友
-var removeFriends = function(obj) {
+var removeFriends = function (obj) {
   conn.removeRoster({
     to: obj,
-    success: function() {
+    success: function () {
       // 删除成功
       conn.unsubscribed({
-        to: obj
+        to: obj,
       });
     },
-    error: function() {
+    error: function () {
       // 删除失败
-    }
+    },
   });
 }; //删除好友
-var createGroups = function(value, info, members, pub, opM, opA) {
+var createGroups = function (value, info, members, pub, opM, opA) {
   var options = {
     subject: value, // 群名称
     description: info, // 群简介
@@ -732,15 +720,15 @@ var createGroups = function(value, info, members, pub, opM, opA) {
     optionsModerate: opM, // 加入是否需审批
     // optionsMembersOnly: true,                  // 是否允许任何人主动加入
     optionsAllowInvites: opA, // 是否允许群人员邀请
-    success: function(respData) {},
-    error: function() {}
+    success: function (respData) {},
+    error: function () {},
   };
   conn.createGroup(options);
 }; //创建群
-var joinGroups = function(groupId) {
+var joinGroups = function (groupId) {
   var options = {
     groupId: groupId,
-    success: function(resp) {
+    success: function (resp) {
       console.log('成功加入群的resp: ', resp);
       // $("#remindMsg").text("成功加入群");
       // $("#remindModal").modal();
@@ -748,64 +736,64 @@ var joinGroups = function(groupId) {
       // var hidename = message.from;
       // var displayname = hidename;
       // var type = 'chat';
-      // var src = "./demo/img/group_normal.png"
+      // var src = "./assets/img/group_normal.png"
       // var chatId = 'ChatGroups-'+message.from;
       // appendListDiv(id,hidename,displayname,type,friendList,src);
       // appendChatDiv(chatId,chatBoxContent);
     },
-    error: function(e) {
+    error: function (e) {
       if (e.type == 17) {
         $('#remindMsg').text('你已经加入了该群');
         $('#remindModal').modal();
       }
-    }
+    },
   };
   conn.joinGroup(options);
 }; //添加群
-var leaveGroup = function(user, groupid) {
+var leaveGroup = function (user, groupid) {
   var option = {
     to: user,
     roomId: groupid,
-    success: function() {
+    success: function () {
       console.log('你成功离开了群!');
     },
-    error: function() {
+    error: function () {
       console.log('离开群失败');
-    }
+    },
   };
   conn.leaveGroupBySelf(option);
 }; // 成员主动退出群
-var dissolveGroup = function(groupid) {
+var dissolveGroup = function (groupid) {
   var option = {
     groupId: groupid,
-    success: function() {
+    success: function () {
       console.log('Destroy group success!');
-    }
+    },
   };
   conn.dissolveGroup(option);
 }; //解散群
-var getGroupInfo = function(gid) {
+var getGroupInfo = function (gid) {
   var options = {
     groupId: gid,
-    success: function(resp) {
+    success: function (resp) {
       console.log('Response: ', resp);
     },
-    error: function() {}
+    error: function () {},
   };
   conn.getGroupInfo(options);
 }; //获取群组信息
-var getGroupAdmin = function(gid) {
+var getGroupAdmin = function (gid) {
   var pageNum = 1,
     pageSize = 1000;
   var options = {
     pageNum: pageNum,
     pageSize: pageSize,
     groupId: gid,
-    success: function(resp) {
+    success: function (resp) {
       var a = resp.data[resp.data.length - 1].owner;
       curOwner = a;
     },
-    error: function(e) {}
+    error: function (e) {},
   };
   conn.listGroupMember(options);
 }; //获取群组下所有管理员
@@ -821,36 +809,36 @@ var toRoster = []; //到好友id
 var redPCache = {};
 
 /*点击事件*/
-var registerClick = function() {
+var registerClick = function () {
   var a = $('#username').val();
   var b = $('#password').val();
   var c = $('#nickname').val();
   register(a, b, c);
 }; //点击注册事件
-var loginClick = function() {
+var loginClick = function () {
   var a = $('#user').val();
   var b = $('#pwd').val();
   login(a, b);
 }; //点击登录按钮事件
-var logoutClick = function() {
+var logoutClick = function () {
   logout();
   window.location.reload();
 }; //点击登出事件
-var listMenuClick = function() {
+var listMenuClick = function () {
   $('.list-menu ul').toggleClass('hide');
 }; // 点击列表菜单事件
-var addFriendsClick = function() {
+var addFriendsClick = function () {
   var name = $('#addFriendName').val();
   var msg = $('#addFriendMsg').val();
   addFriends(name, msg);
 }; //点击添加好友事件
-var chatMenuClick = function() {
+var chatMenuClick = function () {
   $('.chat-box-hd a ul').empty();
   if (curAcceptMsgObjType == 'chat') {
     var li = $('<li>')
       .attr({
         id: 'removeFriends',
-        class: 'list-group-item'
+        class: 'list-group-item',
       })
       .text('删除好友')
       .click(removeFriendsClick);
@@ -860,13 +848,13 @@ var chatMenuClick = function() {
       var id = $('#' + curAcceptMsgObjDivId.replace(/Chat/, 'List')).attr('hidename');
       var lia = $('<li>')
         .attr({
-          class: 'list-group-item'
+          class: 'list-group-item',
         })
         .text('群ID：' + id);
       var li = $('<li>')
         .attr({
           id: 'quitGroups',
-          class: 'list-group-item'
+          class: 'list-group-item',
         })
         .text('解散群组')
         .click(unGroupClick);
@@ -876,13 +864,13 @@ var chatMenuClick = function() {
       var id = $('#' + curAcceptMsgObjDivId.replace(/Chat/, 'List')).attr('hidename');
       var lia = $('<li>')
         .attr({
-          class: 'list-group-item'
+          class: 'list-group-item',
         })
         .text('群ID：' + id);
       var li = $('<li>')
         .attr({
           id: 'quitGroups',
-          class: 'list-group-item'
+          class: 'list-group-item',
         })
         .text('退出群组')
         .click(leaveGroupClick);
@@ -892,7 +880,7 @@ var chatMenuClick = function() {
   }
   $('.chat-box-hd a ul').toggleClass('hide');
 }; // 点击聊天菜单事件
-var removeFriendsClick = function() {
+var removeFriendsClick = function () {
   removeFriends(curAcceptMsgObj);
   var a = curAcceptMsgObjDivId.replace(/Chat/, 'List');
   $('#' + curAcceptMsgObjDivId).remove();
@@ -903,7 +891,7 @@ var removeFriendsClick = function() {
   curAcceptMsgObj = null;
   curAcceptMsgObjType = null;
 }; //点击删除好友事件
-var leaveGroupClick = function() {
+var leaveGroupClick = function () {
   var a = curAcceptMsgObjDivId.replace(/Chat/, 'List');
   var id = $('#' + a).attr('hidename');
   leaveGroup(curUserId, id);
@@ -915,7 +903,7 @@ var leaveGroupClick = function() {
   curAcceptMsgObj = null;
   curAcceptMsgObjType = null;
 }; //点击退出群组事件
-var unGroupClick = function() {
+var unGroupClick = function () {
   var a = curAcceptMsgObjDivId.replace(/Chat/, 'List');
   var id = $('#' + a).attr('hidename');
   dissolveGroup(id);
@@ -927,20 +915,20 @@ var unGroupClick = function() {
   curAcceptMsgObj = null;
   curAcceptMsgObjType = null;
 }; //点击解散群组事件
-var createGroupsClick = function() {
+var createGroupsClick = function () {
   var value = $('#createGroupName').val();
   var info = $('#createGroupInfo').val();
   var members = [curUserId];
   createGroups(value, info, members, true, true, true);
 }; //点击创建群事件
-var joinGroupsClick = function() {
+var joinGroupsClick = function () {
   var id = $('#addGroupId').val();
   joinGroups(id);
 }; //点击添加群事件
-var faceBoxClick = function() {
+var faceBoxClick = function () {
   $('.face ul').toggleClass('hide');
 }; //表情盒子点击事件
-var sendClick = function() {
+var sendClick = function () {
   var html = $('#text').html();
   if (html != null && html != '') {
     if (curAcceptMsgObjType == 'chat') {
@@ -950,27 +938,25 @@ var sendClick = function() {
     }
     // 把发送的消息添加进消息盒子中
     var chatdiv = $('<div>').attr({
-      class: 'myMsg'
+      class: 'myMsg',
     });
     $('<img>')
       .attr({
-        src: './demo/img/tx.jpg',
+        src: './assets/img/tx.jpg',
         width: '40px',
         height: '40px',
-        id: 'rimg'
+        id: 'rimg',
       })
       .appendTo(chatdiv);
     var text = $('#text').html();
-    $('<span>')
-      .html(text)
-      .appendTo(chatdiv);
+    $('<span>').html(text).appendTo(chatdiv);
     $('#' + curAcceptMsgObjDivId).append(chatdiv);
     scrollBottom('#' + curAcceptMsgObjDivId);
     // 清空输入框内容
     $(textMsg).text('');
   }
 }; // 点击发送按钮处理的事件
-var chooseFaceClick = function(li) {
+var chooseFaceClick = function (li) {
   var a = $(li).html();
   // console.log(a);
   var text0 = $(li).attr('key');
@@ -981,7 +967,7 @@ var chooseFaceClick = function(li) {
   console.log(b);
 }; //选择表情事件
 
-var scrollBottom = function(obj) {
+var scrollBottom = function (obj) {
   $(obj).scrollTop($(obj).prop('scrollHeight'));
 }; //让聊天窗口滚动条处于底部
 /*
@@ -998,13 +984,13 @@ var divHide = function(e) {
 	$("#" + a).removeClass("hide");
 };// div的隐藏与显示，用-分割显示与隐藏的集合id，用_表示分割集合中的id，例如：id1_id2_id3-id4表示隐藏id1、id2、id3显示id4
 */
-var divHide = function() {
+var divHide = function () {
   for (let i = 1, len = arguments.length; i < len; i++) {
     $(arguments[i]).addClass('hide');
   }
   $(arguments[0]).removeClass('hide');
 };
-var chooseListDivClick = function(li) {
+var chooseListDivClick = function (li) {
   var chooseObjId = li.id;
   var chooseObjDivId = chooseObjId.replace(/List/, 'Chat');
   var chooseAcceptMsgObj = $('#' + chooseObjId).attr('hidename');
@@ -1031,15 +1017,15 @@ var chooseListDivClick = function(li) {
   curAcceptMsgObjType = li.type;
 }; //选择列表事件
 
-var buildCreateGroupsDiv = function() {};
+var buildCreateGroupsDiv = function () {};
 
-var setMainMargin = function() {
+var setMainMargin = function () {
   if ($(window).height() <= 750) {
     $('.main').attr('style', 'margin-top:0px;');
   } else if ($(window).height() > 750) {
     $('.main').attr('style', 'margin-top:100px;');
   }
-  $(window).resize(function() {
+  $(window).resize(function () {
     if ($(window).height() <= 750) {
       $('.main').attr('style', 'margin-top:0px;');
     } else if ($(window).height() > 750) {
