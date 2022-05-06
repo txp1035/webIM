@@ -2,6 +2,10 @@
 
 这是一个 web 即时通讯 UI-后台基于环信。致力于建立一个前端即时通讯 UI。
 
+# 效果
+
+![im](./im.gif)
+
 ## 测试账号和地址
 
 - demo 地址：[https://txp1035.github.io/webIM/jQuery/index.html](https://txp1035.github.io/webIM/jQuery/index.html)
